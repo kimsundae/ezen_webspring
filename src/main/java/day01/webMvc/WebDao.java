@@ -1,4 +1,4 @@
-package day01.consoleMvc;
+package day01.webMvc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,11 +8,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsoleDao {
+public class WebDao {
     private Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
-    public ConsoleDao(){
+    public WebDao(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/springweb","root","1234");
@@ -22,14 +22,14 @@ public class ConsoleDao {
         }
 
     }
-    public List<ConsoleDto> doGet(){
-        List<ConsoleDto> list = new ArrayList<>();
+    public List<WebDto> doGet(){
+        List<WebDto> list = new ArrayList<>();
         try{
             String sql = "select * from todo";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while( rs.next() ){
-                ConsoleDto dto = new ConsoleDto(
+                WebDto dto = new WebDto(
                      rs.getInt(1),
                         rs.getString(2),
                         LocalDate.parse( rs.getString(3)),
@@ -42,7 +42,7 @@ public class ConsoleDao {
         return null;
     }
 
-    public boolean doPost( ConsoleDto dto ){
+    public boolean doPost( WebDto dto ){
         try {
             String sql = "insert into todo(title,dueDate,finished) values(?,?,?)";
             ps = conn.prepareStatement(sql);
