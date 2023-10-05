@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/todo")
 public class TodoController {
 
-    @Autowired // 미리 등록된 스프링 컨테이너에서 빈 찾아서 객체를 주입
+    @Autowired // 미리 등록된 스프링 컨테이너에서 빈(bean/객체) 찾아서 객체를 주입
     private TodoService todoService; // 서비스 객체
 
     // REST : HTTP 기반으로 GET, POST, PUT, DELETE 메소드 이용한 웹 서비스
