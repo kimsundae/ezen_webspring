@@ -1,0 +1,59 @@
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+*{
+    box-sizing: border-box;
+    font-family: 'omyu_pretty';
+}
+.phoneWrap{
+    width: 500px;
+    margin: 0 auto;
+}
+.phone_top{
+    display : flex;
+    height: 40px;
+}
+.phone_top input{
+    width: 85%;
+    padding: 10px;
+    border: none;
+    box-shadow: 0px 0px 3px #d49a9a;
+}
+.phone_top button{
+    width: 15%;
+    padding: 10px;
+    border: none;
+    box-shadow: 0px 0px 3px #d49a9a;
+    background-color:black;
+    color:white;
+}
+
+.phone{
+    margin: 20px 1px;
+    background-color: orange;
+    display: flex;
+    align-items: center;
+    padding: 2px 20px;
+    height: 60px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.phone .pName{
+    width: 70%;
+}
+.phone .phoneNumber{
+    width: 60%;
+}
+.phone .etcbtns button{
+    font-size: 11px;
+    border: none;
+    box-shadow: 0px 0px 2px red;
+    padding: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+    background-color:black;
+    color: white;
+}

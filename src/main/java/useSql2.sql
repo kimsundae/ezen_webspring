@@ -7,4 +7,5 @@ CREATE TABLE  todo(
                       tstate boolean ,
                       primary key( tno )
 );
-select * from todo;
+use springweb;
+select * from phone_entity;

@@ -10,7 +10,7 @@ import java.util.List;
 
 // 스프링 빈 : 스프링 컨테이너(저장소)에 저장[]된 객체 | 이유 : 스프링이 대신 객체 관리한다. 왜?
 
-@Controller     // Spring MVC 중에 해당 클래스를 Controller로 사용
+   // Spring MVC 중에 해당 클래스를 Controller로 사용
 @RestController // Controller + ResponseBody
 @RequestMapping("/day04/todo")
 public class TodoController {

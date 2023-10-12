@@ -1,8 +1,7 @@
 getList()
 function getList(){
-    console.log('실행')
     $.ajax({
-        url:"http://localhost:80/day04/todo",
+        url:"http://192.168.17.138/day04/todo",
         method:"get",
         data : {},
         success:array=>{
@@ -27,7 +26,7 @@ function getList(){
 function postTodo(){
     let tcontent = document.querySelector('.newTodo').value;
     $.ajax({
-        url:"http://localhost:80/day04/todo",
+        url:"http://192.168.17.138/day04/todo",
         method:"post",
         data : JSON.stringify({tcontent:tcontent , tstate: false }),
         contentType: 'application/json; charset=utf-8',
@@ -45,7 +44,7 @@ function postTodo(){
 // delete
 function deleteTodo( tno ){
     $.ajax({
-        url:"http://localhost:80/day04/todo",
+        url:"http://192.168.17.138/day04/todo",
         method:"delete",
         data : {tno:tno},
         success: r => {
@@ -62,7 +61,7 @@ function deleteTodo( tno ){
 // put
 function putState( tno , tstate ){
     $.ajax({
-        url:"http://localhost:80/day04/todo",
+        url:"http://192.168.17.138/day04/todo",
         method:"put",
         data : JSON.stringify({tno:tno , tstate: tstate }),
         contentType: 'application/json; charset=utf-8',
