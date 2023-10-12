@@ -8,6 +8,8 @@ import javax.persistence.Id;
 
 @Entity // JPA(ORM매핑) MYSQL 테이블과 매핑
 @Builder  // 빌더 패턴
+@Setter@Getter
+@NoArgsConstructor@AllArgsConstructor
 public class TodoEntity {
     @Id // PK로 선정할 필드
     @GeneratedValue( strategy = GenerationType.IDENTITY) // auto_increment
