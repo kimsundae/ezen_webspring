@@ -2,7 +2,7 @@ getList()
 function getList(){
     console.log('실행')
     $.ajax({
-        url:"http://localhost:80/todo",
+        url:"http://localhost:80/day04/todo",
         method:"get",
         data : {},
         success:array=>{
@@ -10,7 +10,7 @@ function getList(){
             let html = ``
             array.forEach(r=>{
                 html +=
-                    `<div class="${tstate == true ? 'successTodo' : 'todo'}"> <!-- todo 항목 1개 -->
+                    `<div class="${r.tstate == true ? 'successTodo' : 'todo'}"> <!-- todo 항목 1개 -->
                         <div class="tcontent">${r.tcontent}</div>
                         <div class="etcbtns">
                             <button type="button" onclick="putState( ${r.tno}, ${!r.tstate} )">상태변경</button>
@@ -27,9 +27,10 @@ function getList(){
 function postTodo(){
     let tcontent = document.querySelector('.newTodo').values;
     $.ajax({
-        url:"http://localhost:80/todo",
+        url:"http://localhost:80/day04/todo",
         method:"post",
-        data : {tcontent:newTodo , tstate: false },
+        data : {tcontent:tcontent , tstate: false },
+        contentType: 'application/json; charset=utf-8',
         success: r => {
             if( r == true )
                 alert('등록 되었습니다.')
@@ -42,7 +43,7 @@ function postTodo(){
 // delete
 function deleteTodo( tno ){
     $.ajax({
-        url:"http://localhost:80/todo",
+        url:"http://localhost:80/day04/todo",
         method:"delete",
         data : {tno:tno},
         success: r => {
@@ -58,11 +59,10 @@ function deleteTodo( tno ){
 }
 // put
 function putState( tno , tstate ){
-    let tcontent = prompt('수정할 내용을 입력해주세요.');
     $.ajax({
-        url:"http://localhost:80/todo",
-        method:"post",
-        data : {tcontent:tcontent , tstate: tstate },
+        url:"http://localhost:80/day04/todo",
+        method:"put",
+        data : {tno:tno , tstate: tstate },
         success: r => {
             if( r == true )
                 alert('수정 되었습니다.')

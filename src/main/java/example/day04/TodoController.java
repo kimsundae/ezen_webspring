@@ -12,7 +12,7 @@ import java.util.List;
 
 @Controller     // Spring MVC 중에 해당 클래스를 Controller로 사용
 @RestController // Controller + ResponseBody
-@RequestMapping("/todo")
+@RequestMapping("/day04/todo")
 public class TodoController {
 
     @Autowired // 미리 등록된 스프링 컨테이너에서 빈(bean/객체) 찾아서 객체를 주입
