@@ -3,3 +3,4 @@
         - 스프링 실행시 DB연동
         - 경로 오류 [ 1. 경로 세팅 안함 2. 경로에 오타 등 ]
             Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
