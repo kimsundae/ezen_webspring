@@ -11,11 +11,19 @@ public class NoteService {
     NoteEntityRepository noteEntityRepository;
 
     // 1. C
-    public boolean bwrite(){ return false; }
+    public boolean bWrite( NoteDto noteDto ){
+        return false;
+    }
     // 2. R
-    public List<Object> blist(){ return null; }
+    public List<NoteDto> bList( ){
+        return null;
+    }
     // 3. U
-    public boolean bupdate(){ return false; }
+    public boolean bUpdate( NoteDto noteDto){
+        return false;
+    }
     // 4. D
-    public boolean bdelete(){ return false; }
+    public boolean bDelete( int no ){
+        return false;
+    }
 }
