@@ -1,3 +1,4 @@
+
 getPhone();
 //get
 function getPhone(){
@@ -71,6 +72,7 @@ function onDelete(pno){
 function onPut( pno ){
     let pname = prompt('수정할 이름을 입력해주세요')
     let ppnumber = prompt('수정할 전화번호를 입력해주세요')
+    if( pname=='' || ppnumber == '' ) return alert('전체 항목을 입력해주세요.')
     $.ajax({
         url:"http://192.168.17.138/phone",
         method:"put",

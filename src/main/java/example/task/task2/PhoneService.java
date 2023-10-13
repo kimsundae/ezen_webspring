@@ -1,6 +1,7 @@
 package example.task.task2;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,10 +24,10 @@ public class PhoneService {
         phoneEntityRepository.save( phoneEntity );
         return true;
     }
-    public List<PhoneDto> doGet(){
+    public List<PhoneDto> doGet(
+){
 
-        List<PhoneEntity> phoneEntities = phoneEntityRepository.findAll();
-
+            List<PhoneEntity> phoneEntities = phoneEntityRepository.findAll(Sort.by(Sort.Direction.DESC, "pname"));
         List<PhoneDto> list = new ArrayList<>();
 
         phoneEntities.forEach((entity)->{

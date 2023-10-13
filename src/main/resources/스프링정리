@@ -41,6 +41,16 @@
         3. main 선언
                 SpringApplication.run( 현재클래스명.class );
 
+        - MVC 3티어
+            - 레이어 : 구역
+            - DTO,VO,ENTITY
+            프레젠테이션 레이어
+                VIEW, CONTROLLER
+            서비스 레이어
+                SERVICE
+            리포지토리 레이어
+                REPOSITORY
+
 - 어노테이션
 1. 스프링
     @SpringBootApplication      스프링부트 실행 관련 제공
@@ -70,3 +80,5 @@
     @Builder                // 빌더 패턴[ 유연하게 객체 생성 도와주는 함수 제공 ]
 
 4.JPA
+
+
