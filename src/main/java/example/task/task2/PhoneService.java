@@ -27,7 +27,7 @@ public class PhoneService {
     public List<PhoneDto> doGet(
 ){
 
-            List<PhoneEntity> phoneEntities = phoneEntityRepository.findAll(Sort.by(Sort.Direction.DESC, "pname"));
+        List<PhoneEntity> phoneEntities = phoneEntityRepository.findAll(Sort.by(Sort.Direction.DESC, "pname"));
         List<PhoneDto> list = new ArrayList<>();
 
         phoneEntities.forEach((entity)->{
