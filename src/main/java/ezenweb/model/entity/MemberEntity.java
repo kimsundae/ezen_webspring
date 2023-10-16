@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity // 해당 클래스를 db테이블과 매핑 [ 엔티티클래스가 곧 테이블과 매핑 ( 엔티티 1개 객체 <--> 테이블 내 레코드 1개)]
 @Table(name = "member") // db테이블명 정의 가능 [ 생략시 해당 클래스명이 곧 db테이블 명으로 자동 생성 ]
@@ -34,12 +35,15 @@ public class MemberEntity extends BaseTime{
 
     // entity --> dto 변환 함수
     public MemberDto toDto(){
-        return new MemberDto(
-                this.mno
-                ,this.memail
-                ,this.mpassword
-                ,this.mname
-                ,this.mphone
-                ,this.mrole);
+        return MemberDto.builder()
+                .mno(this.mno)
+                .memail(this.memail)
+                .mpassword(this.mpassword)
+                .mname(this.mname)
+                .mphone(this.mphone)
+                .mrole(this.mrole)
+                .cdate(this.getCdate())
+                .udate(this.getUdate())
+                .build();
     }
 }

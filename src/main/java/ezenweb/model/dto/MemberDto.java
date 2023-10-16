@@ -3,6 +3,8 @@ package ezenweb.model.dto;
 import ezenweb.model.entity.MemberEntity;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @AllArgsConstructor@NoArgsConstructor
 @Getter@Setter@ToString@Builder
 public class MemberDto {
@@ -14,13 +16,15 @@ public class MemberDto {
     private String mphone;      // 5.연락처
     private String mrole;       // 6.회원등급( 일반회원 = user, 관리자 회원 = admin)
 
+    private LocalDateTime cdate;
+    private LocalDateTime udate;
     // dto --> entity 변환 함수
     public MemberEntity toEntity(){
         return MemberEntity.builder()
                 .memail(this.memail)
                 .mpassword(this.mpassword)
                 .mname(this.mname)
-                .mphone(this.mphone).build();
-
+                .mphone(this.mphone)
+                .build();
     }
 }
