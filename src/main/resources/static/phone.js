@@ -27,7 +27,6 @@ function getPhone(){
         },
         error : e => {console.log(e)}
     })
-
 }
 
 // post
