@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -64,4 +66,70 @@ public class MemberService {
         memberEntityRepositoryEntity.deleteById(mno);
         return true;
     }
+    // ---------- 과제5 -------------- //
+    // 아이디 찾기
+    public String findId( String name, String phoneNumber ){
+        List<MemberEntity> list = memberEntityRepositoryEntity.findAll();
+        List<MemberDto> memberDtoList = new ArrayList<>();
+        list.forEach( entity -> {
+            memberDtoList.add(MemberDto.builder()
+                    .mno(entity.getMno())
+                    .memail(entity.getMemail())
+                    .mname(entity.getMname())
+                    .mpassword(entity.getMpassword())
+                    .mphone(entity.getMphone())
+                    .mrole(entity.getMrole()).build());
+        });
+
+        for( MemberDto memberDto : memberDtoList){
+            if( memberDto.getMname().equals(name) && memberDto.getMphone().equals(phoneNumber)){
+                return memberDto.getMemail();
+            }
+        }
+        return null;
+    }
+    // 비밀번호 찾기
+    public String findPw( String email, String phoneNumber ){
+        List<MemberEntity> list = memberEntityRepositoryEntity.findAll();
+        List<MemberDto> memberDtoList = new ArrayList<>();
+        list.forEach( entity -> {
+            memberDtoList.add(MemberDto.builder()
+                    .mno(entity.getMno())
+                    .memail(entity.getMemail())
+                    .mname(entity.getMname())
+                    .mpassword(entity.getMpassword())
+                    .mphone(entity.getMphone())
+                    .mrole(entity.getMrole()).build());
+        });
+
+        for( MemberDto memberDto : memberDtoList){
+            if( memberDto.getMemail().equals(email) && memberDto.getMphone().equals(phoneNumber)){
+                return memberDto.getMpassword();
+            }
+        }
+        return null;
+    }
+    // 로그인
+    public MemberDto login( MemberDto inputMemberDto ){
+        List<MemberEntity> list = memberEntityRepositoryEntity.findAll();
+        List<MemberDto> memberDtoList = new ArrayList<>();
+        list.forEach( entity -> {
+            memberDtoList.add(MemberDto.builder()
+                    .mno(entity.getMno())
+                    .memail(entity.getMemail())
+                    .mname(entity.getMname())
+                    .mpassword(entity.getMpassword())
+                    .mphone(entity.getMphone())
+                    .mrole(entity.getMrole()).build());
+        });
+        // 이메일과 비밀번호 찾으면 true 반환
+        for( MemberDto memberDto : memberDtoList){
+            if( memberDto.getMemail().equals(inputMemberDto.getMemail()) && memberDto.getMpassword().equals(inputMemberDto.getMpassword())){
+                return memberDto;
+            }
+        }
+        return null;
+    }
+
+
 }

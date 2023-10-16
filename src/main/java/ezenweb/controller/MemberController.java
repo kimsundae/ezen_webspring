@@ -5,6 +5,8 @@ import ezenweb.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/member")
 public class MemberController {
@@ -35,5 +37,36 @@ public class MemberController {
     public boolean doDelete( @RequestParam int mno ){
         boolean result = memberService.deleteMember( mno );
         return result;
+    }
+    // ------------- 과제5 ---------------- //
+    @GetMapping("/findId")
+    public String findId( @RequestParam String name , String phoneNumber ){
+        String result = memberService.findId( name, phoneNumber );
+        return result == null ? "일치하는 정보가 없습니다." : result;
+    }
+    @GetMapping("/findPw")
+    public String findPw( @RequestParam String email , String phoneNumber){
+        String result = memberService.findPw( email, phoneNumber);
+        return result == null ? "일치하는 정보가 없습니다." : result;
+    }
+    // 로그인
+    @PostMapping("/login")
+    public String login( @RequestBody MemberDto memberDto , HttpSession session ){
+        MemberDto loginDto = memberService.login( memberDto );
+        if( loginDto != null ){
+            session.setAttribute("loginDto" , loginDto );
+            return "로그인 되었습니다.";
+        }
+        else
+            return "로그인 실패되었습니다.";
+    }
+    // 로그아웃
+    @GetMapping("/logout")
+    public String logout( @RequestParam int mno , HttpSession session ){
+        if( ((MemberDto)session.getAttribute("loginDto")).getMno() == mno ){
+            session.setAttribute("loginDto", null);
+            return "로그아웃 되었습니다.";
+        }else
+            return "로그아웃 실패되었습니다.";
     }
 }

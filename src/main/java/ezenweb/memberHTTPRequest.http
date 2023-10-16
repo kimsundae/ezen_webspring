@@ -1,16 +1,21 @@
+GET http://localhost:80/member?name=홍길동&phoneNumber=010-1234-1234
+
+
+###
 POST http://localhost:80/member
 Content-Type: application/json
 
 {
-  "memail" : "qweqwe@qweqwe.com" ,
-  "mpassword" : "123123" ,
-  "mname" : "강호동" ,
+  "memail" : "naa159@naver.com" ,
+  "mpassword" : "1234" ,
+  "mname" : "홍길동" ,
   "mphone" : "010-1234-1234"
 }
 
 ###
 # get
 GET http://localhost:80/member?mno=1
+
 
 PUT
 
