@@ -1,0 +1,12 @@
+# get
+GET http://localhost:80/member?mno=1
+
+
+# POST
+POST http://localhost:80/member
+
+# DELETE
+DELETE http://localhost:80/member
+
+# PUT
+PUT http://localhost:80/member

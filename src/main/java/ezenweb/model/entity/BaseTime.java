@@ -8,11 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
-@MappedSuperclass
+@MappedSuperclass // 엔티티X [ 여러 엔티티가 공통으로 사용하는 필드에 대해 구성할 때]
 public class BaseTime {
-    @CreatedDate
+    @CreatedDate // 엔티티가 생성될 때 시간이 자동 저장/주입
     private LocalDateTime cdate; // 레코드/엔티티 생성날짜
-    @LastModifiedDate
+    @LastModifiedDate // 엔티티가 변경될 때 시간이 자동 저장/주입
     private LocalDateTime udate; // 레코드/엔티티 수정날짜
 
 }

@@ -16,12 +16,11 @@ public class MemberDto {
 
     // dto --> entity 변환 함수
     public MemberEntity toEntity(){
-        return new MemberEntity(
-                this.mno
-                ,this.memail
-                ,this.mpassword
-                ,this.mname
-                ,this.mphone
-                ,this.mrole);
+        return MemberEntity.builder()
+                .memail(this.memail)
+                .mpassword(this.mpassword)
+                .mname(this.mname)
+                .mphone(this.mphone).build();
+
     }
 }
