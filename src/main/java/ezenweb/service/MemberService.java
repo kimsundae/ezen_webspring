@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,8 @@ public class MemberService {
     // Controller <- Service <- Repository
     @Autowired
     private MemberEntityRepository memberEntityRepositoryEntity;
-
+    @Autowired
+    private HttpServletRequest request;
     // 1. [C] 회원가입
     public boolean postMember( MemberDto memberDto ){
         System.out.println("memberDto = " + memberDto);
@@ -32,8 +34,8 @@ public class MemberService {
         if( memberEntity.getMno() >= 1 ) { return true;}
         return false;
     }
+    /* 세션 이전
     // 2. [R] 회원정보 호출
-    @GetMapping("")
     public MemberDto getMember( int mno ){
         System.out.println("mno = " + mno);
         // 1. mno[회원번호pk]를 이용한 회원 엔티티 찾기
@@ -43,6 +45,18 @@ public class MemberService {
             // 4. optinal 클래스에서 엔티티 꺼내고 Dto로 반환
             return entity.get().toDto();
         }
+        return null;
+    }
+     */
+    //세션 적용 회원정보 호출 메서드
+    @Transactional
+    public MemberDto getMember(){
+        // 1.
+        Object session = request.getSession().getAttribute("loginDto");
+        // 2. 세션 검증
+        if( session != null )
+            return (MemberDto)session;
+
         return null;
     }
     // 3. [U] 회원정보 수정
