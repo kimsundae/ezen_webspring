@@ -1007,8 +1007,8 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="292" parent="1" name="springweb">
-      <IntrospectionTimestamp>2023-10-16.22:59:22</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-10-16.04:59:22</LocalIntrospectionTimestamp>
+      <IntrospectionTimestamp>2023-10-18.21:02:03</IntrospectionTimestamp>
+      <LocalIntrospectionTimestamp>2023-10-18.03:02:03</LocalIntrospectionTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="293" parent="1" name="mysql.infoschema">
@@ -1030,263 +1030,313 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-    <table id="297" parent="292" name="car_entity">
+    <table id="297" parent="292" name="board">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="298" parent="292" name="member">
+    <table id="298" parent="292" name="car_entity">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="299" parent="292" name="member_entity">
+    <table id="299" parent="292" name="member">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="300" parent="292" name="note_entity">
+    <table id="300" parent="292" name="member_entity">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="301" parent="292" name="phone_entity">
+    <table id="301" parent="292" name="note_entity">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="302" parent="292" name="todo">
+    <table id="302" parent="292" name="phone_entity">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="303" parent="292" name="todo_entity">
+    <table id="303" parent="292" name="todo">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <column id="304" parent="297" name="cno">
-      <AutoIncrement>3</AutoIncrement>
+    <table id="304" parent="292" name="todo_entity">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <column id="305" parent="297" name="bno">
+      <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="305" parent="297" name="cnumber">
-      <DasType>varchar(255)|0s</DasType>
+    <column id="306" parent="297" name="cdate">
+      <DasType>datetime(6)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="306" parent="297" name="ctime">
+    <column id="307" parent="297" name="udate">
       <DasType>datetime(6)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="307" parent="297" name="ctype">
-      <DasType>varchar(255)|0s</DasType>
+    <column id="308" parent="297" name="bcontent">
+      <DasType>longtext|0s</DasType>
       <Position>4</Position>
     </column>
-    <index id="308" parent="297" name="PRIMARY">
-      <ColNames>cno</ColNames>
+    <column id="309" parent="297" name="bfile">
+      <DasType>longtext|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="310" parent="297" name="btitle">
+      <DasType>varchar(200)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+    </column>
+    <column id="311" parent="297" name="bview">
+      <DasType>int|0s</DasType>
+      <DefaultExpression>0</DefaultExpression>
+      <Position>7</Position>
+    </column>
+    <column id="312" parent="297" name="mno">
+      <DasType>int|0s</DasType>
+      <Position>8</Position>
+    </column>
+    <index id="313" parent="297" name="PRIMARY">
+      <ColNames>bno</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="309" parent="297" name="PRIMARY">
+    <key id="314" parent="297" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="310" parent="298" name="mno">
+    <column id="315" parent="298" name="cno">
       <AutoIncrement>2</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="311" parent="298" name="cdate">
-      <DasType>datetime(6)|0s</DasType>
+    <column id="316" parent="298" name="cnumber">
+      <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="312" parent="298" name="udate">
+    <column id="317" parent="298" name="ctime">
       <DasType>datetime(6)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="313" parent="298" name="memail">
+    <column id="318" parent="298" name="ctype">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <index id="319" parent="298" name="PRIMARY">
+      <ColNames>cno</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="320" parent="298" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="321" parent="299" name="mno">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="322" parent="299" name="cdate">
+      <DasType>datetime(6)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="323" parent="299" name="udate">
+      <DasType>datetime(6)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="324" parent="299" name="memail">
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="314" parent="298" name="mname">
+    <column id="325" parent="299" name="mname">
       <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="315" parent="298" name="mpassword">
+    <column id="326" parent="299" name="mpassword">
       <DasType>varchar(30)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="316" parent="298" name="mphone">
+    <column id="327" parent="299" name="mphone">
       <DasType>varchar(13)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="317" parent="298" name="mrole">
+    <column id="328" parent="299" name="mrole">
       <DasType>varchar(255)|0s</DasType>
       <DefaultExpression>&apos;user&apos;</DefaultExpression>
       <Position>8</Position>
     </column>
-    <index id="318" parent="298" name="PRIMARY">
+    <index id="329" parent="299" name="PRIMARY">
       <ColNames>mno</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="319" parent="298" name="UK_2r6umf1c0uyfmvwp30vmb3gjr">
+    <index id="330" parent="299" name="UK_2r6umf1c0uyfmvwp30vmb3gjr">
       <ColNames>memail</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="320" parent="298" name="UK_n2q2yivqxxmkd9ryafbdfmahf">
+    <index id="331" parent="299" name="UK_n2q2yivqxxmkd9ryafbdfmahf">
       <ColNames>mphone</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="321" parent="298" name="PRIMARY">
+    <key id="332" parent="299" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="322" parent="298" name="UK_2r6umf1c0uyfmvwp30vmb3gjr">
+    <key id="333" parent="299" name="UK_2r6umf1c0uyfmvwp30vmb3gjr">
       <UnderlyingIndexName>UK_2r6umf1c0uyfmvwp30vmb3gjr</UnderlyingIndexName>
     </key>
-    <key id="323" parent="298" name="UK_n2q2yivqxxmkd9ryafbdfmahf">
+    <key id="334" parent="299" name="UK_n2q2yivqxxmkd9ryafbdfmahf">
       <UnderlyingIndexName>UK_n2q2yivqxxmkd9ryafbdfmahf</UnderlyingIndexName>
     </key>
-    <column id="324" parent="299" name="mno">
+    <column id="335" parent="300" name="mno">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="325" parent="299" name="memail">
+    <column id="336" parent="300" name="memail">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="326" parent="299" name="mname">
+    <column id="337" parent="300" name="mname">
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="327" parent="299" name="mpassword">
+    <column id="338" parent="300" name="mpassword">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="328" parent="299" name="mphone">
+    <column id="339" parent="300" name="mphone">
       <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="329" parent="299" name="mrole">
+    <column id="340" parent="300" name="mrole">
       <DasType>varchar(255)|0s</DasType>
       <Position>6</Position>
     </column>
-    <index id="330" parent="299" name="PRIMARY">
+    <index id="341" parent="300" name="PRIMARY">
       <ColNames>mno</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="331" parent="299" name="PRIMARY">
+    <key id="342" parent="300" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="332" parent="300" name="no">
-      <AutoIncrement>3</AutoIncrement>
+    <column id="343" parent="301" name="no">
+      <AutoIncrement>2</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="333" parent="300" name="date">
+    <column id="344" parent="301" name="date">
       <DasType>datetime(6)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="334" parent="300" name="password">
+    <column id="345" parent="301" name="password">
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="335" parent="300" name="title">
+    <column id="346" parent="301" name="title">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="336" parent="300" name="writer">
+    <column id="347" parent="301" name="writer">
       <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
     </column>
-    <index id="337" parent="300" name="PRIMARY">
+    <index id="348" parent="301" name="PRIMARY">
       <ColNames>no</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="338" parent="300" name="PRIMARY">
+    <key id="349" parent="301" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="339" parent="301" name="pno">
-      <AutoIncrement>18</AutoIncrement>
+    <column id="350" parent="302" name="pno">
+      <AutoIncrement>17</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="340" parent="301" name="pname">
+    <column id="351" parent="302" name="pname">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="341" parent="301" name="ppnumber">
+    <column id="352" parent="302" name="ppnumber">
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <index id="342" parent="301" name="PRIMARY">
+    <index id="353" parent="302" name="PRIMARY">
       <ColNames>pno</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="343" parent="301" name="PRIMARY">
+    <key id="354" parent="302" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="344" parent="302" name="tno">
-      <AutoIncrement>23</AutoIncrement>
+    <column id="355" parent="303" name="tno">
+      <AutoIncrement>22</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="345" parent="302" name="tcontent">
+    <column id="356" parent="303" name="tcontent">
       <DasType>varchar(100)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="346" parent="302" name="tstate">
+    <column id="357" parent="303" name="tstate">
       <DasType>tinyint(1)|0s</DasType>
       <Position>3</Position>
     </column>
-    <index id="347" parent="302" name="PRIMARY">
+    <index id="358" parent="303" name="PRIMARY">
       <ColNames>tno</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="348" parent="302" name="PRIMARY">
+    <key id="359" parent="303" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="349" parent="303" name="tno">
-      <AutoIncrement>3</AutoIncrement>
+    <column id="360" parent="304" name="tno">
+      <AutoIncrement>2</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="350" parent="303" name="tcontent">
+    <column id="361" parent="304" name="tcontent">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="351" parent="303" name="tstate">
+    <column id="362" parent="304" name="tstate">
       <DasType>bit(1)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <index id="352" parent="303" name="PRIMARY">
+    <index id="363" parent="304" name="PRIMARY">
       <ColNames>tno</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="353" parent="303" name="PRIMARY">
+    <key id="364" parent="304" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>

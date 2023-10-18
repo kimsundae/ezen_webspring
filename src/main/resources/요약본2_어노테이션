@@ -39,6 +39,13 @@
             length = "최대문자수"    : 필드 내 데이터 최대 길이수 ( String 기본값 255 )
             nullable = false    : not null ( 기본값이 true )
             unique = true       : unique ( 기본값이 false )
+            columnDefinition = "실제DB자료형"
+
+                DB              JAVA[엔티티]
+                varchar         String
+                int             int
+                datetime        LocalDateTime
+                longtext        ( columnDefinition = "longtext" )
 
     2. Repository
         @Repository
