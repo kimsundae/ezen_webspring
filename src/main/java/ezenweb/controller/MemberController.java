@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
+// IOC(Inversion Of Control ) : 제어역전 ( 객체 관리를 스프링에게 위임 )
+// DI( Dependency injection ) : 의존성 주입 [ 스프링이 객체를 관리 ]
 @RestController
 @RequestMapping("/member")
 public class MemberController {
