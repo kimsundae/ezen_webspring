@@ -1,0 +1,28 @@
+
+.commentListBox{
+    width:600px;
+    margin: 0 auto;
+}
+
+.pimg{
+    width:100px; height: 100px;
+}
+.wrap{
+    display:flex;
+    border : 1px solid grey;
+    border-radius: 15px;
+    margin: 10px; padding: 10px;
+}
+.commentBox{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+}
+.commentName{
+    color: green;
+    font-size: 17px; margin-bottom: 5px;
+}
+.commentContent{
+    font-size: 15px;
+}
