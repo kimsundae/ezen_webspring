@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter@Setter@NoArgsConstructor@AllArgsConstructor
-@Builder
+@Builder@ToString
 // @ToString : 객체 호출 시 기본값으로 객체 참조값 호출 // @ToString 사용 시 객체 참조값 아닌 객체 참조값의 필드 호출
 public class 회원 {
     private int 회원번호;
