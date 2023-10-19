@@ -11,6 +11,7 @@ import 컴포넌트2 from './component/example/day01/2_컴포넌트'
 import 컴포넌트3 from './component/example/day01/3_컴포넌트'
 import 컴포넌트4 from './component/example/day01/4_컴포넌트'
 import BookListA from './component/example/task/task1/과제1_도서목록'
+import CSS컴포넌트 from './component/example/day02/1_컴포넌트css'
 // 1. index.html에 <div id="root" > dom객체 호출
 const root = ReactDOM.createRoot(document.getElementById('root'));
 // 2. 리액트 랜더링( JSX --> HTML 변환 )
@@ -20,8 +21,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //root.render(<React.StrictMode><컴포넌트2 /></React.StrictMode>);
 //root.render(<React.StrictMode><컴포넌트3 /></React.StrictMode>);
 //root.render(<React.StrictMode><컴포넌트4 /></React.StrictMode>);
-root.render(<React.StrictMode><BookListA /></React.StrictMode>);
-
+//root.render(<React.StrictMode><BookListA /></React.StrictMode>);
+root.render(<React.StrictMode><CSS컴포넌트 /></React.StrictMode>);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
