@@ -6,6 +6,8 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity // 해당 클래스를 db테이블과 매핑 [ 엔티티클래스가 곧 테이블과 매핑 ( 엔티티 1개 객체 <--> 테이블 내 레코드 1개)]
 @Table(name = "member") // db테이블명 정의 가능 [ 생략시 해당 클래스명이 곧 db테이블 명으로 자동 생성 ]
@@ -32,6 +34,10 @@ public class MemberEntity extends BaseTime{
     @Column // 해당 필드 선정
     @ColumnDefault( "'user'" ) // ColumDefault("초기값") ColumnDefault("'문자열일 경우'")
     private String mrole;       // 6.회원등급( 일반회원 = user, 관리자 회원 = admin)
+    @Builder.Default
+    @OneToMany( mappedBy = "memberEntity" ) // 하나가 다수에게 [ PK ] // 실제 DB에는 엔티티의 ID만 저장
+    // 게시물목록 = 내가 쓴 게시물
+    private List<BoardEntity> boardEntityList = new ArrayList<>();
 
     // entity --> dto 변환 함수
     public MemberDto toDto(){
