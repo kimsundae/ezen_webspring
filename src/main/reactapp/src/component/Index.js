@@ -5,14 +5,17 @@ import{ BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
+import styles from '../css/Header.css'
 export default function Index(props){
     return(<>
-        <BrowserRouter>
-            <Header/>
-                <Routes>
-                    <Route path={'/'} element={<Main/>}></Route>
-                </Routes>
-            <Footer/>
-        </BrowserRouter>
+        <div className={'webContainer'}>
+            <BrowserRouter>
+                <Header/>
+                    <Routes>
+                        <Route path={'/'} element={<Main/>}></Route>
+                    </Routes>
+                <Footer/>
+            </BrowserRouter>
+        </div>
     </>)
 }

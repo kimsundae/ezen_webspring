@@ -1,0 +1,12 @@
+*{ list-style-type: none; text-decoration: none; color:inherit;}
+.footerWrap{
+    display: flex;
+    justify-content: center;
+
+}
+.leftInforBox{
+    padding-top: 20px;
+}
+.rightInforBox{
+    margin-left: 50px;
+}
