@@ -14,7 +14,8 @@ import CSS컴포넌트 from './example/day02/1_컴포넌트css'
 import CommentList from './example/day02/CommentList'
 import 도서목록 from './example/task/task1/과제1_도서목록'
 import Todo from './example/task/task2/TodoList'
-
+import Login from './member/Login'
+import Signup from './member/Signup'
 import styles from './css/Header.css'
 export default function Index(props){
     return(<>
@@ -24,6 +25,7 @@ export default function Index(props){
                     <Routes>
 
                         <Route path={'/'} element={<Main/>}></Route>
+                        {/*Example*/}
                         <Route path={'/example'} element={<ExampleList/>}></Route>
                         <Route path={'/example/day01/컴포넌트1'} element={<컴포넌트1/>}></Route>
                         <Route path={'/example/day01/컴포넌트2'} element={<컴포넌트2/>}></Route>
@@ -33,6 +35,9 @@ export default function Index(props){
                         <Route path={'/example/day02/CommentList'} element={<CommentList/>}></Route>
                         <Route path={'/example/task/task1'} element={<도서목록/>}></Route>
                         <Route path={'/example/task/task2'} element={<Todo/>}></Route>
+                        {/*Member*/}
+                        <Route path={'/login'} element={<Login/>}></Route>
+                        <Route path={'/signup'} element={<Signup/>}></Route>
 
                     </Routes>
                 <Footer/>

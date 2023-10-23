@@ -12,7 +12,7 @@ reactapp
             - Footer.js
         - index.js
             - 예제코드
-            -
+            - 프로젝트 고정 [ 수정금지 ]
                 import Index from './component/Index'
                 root.render(<React.StrictMode><Index /></React.StrictMode>);
     - gitignore
