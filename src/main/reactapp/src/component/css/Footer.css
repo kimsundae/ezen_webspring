@@ -2,7 +2,8 @@
 .footerWrap{
     display: flex;
     justify-content: center;
-
+    border-top: 1px solid #e8e8e8;
+    margin-top: 100px;
 }
 .leftInforBox{
     padding-top: 20px;

@@ -1,4 +1,4 @@
-import styles from '../css/Footer.css'
+import styles from './css/Footer.css'
 export default function Footer(){
     return(<>
         <footer className={"footerWrap"}>

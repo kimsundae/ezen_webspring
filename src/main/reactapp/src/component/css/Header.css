@@ -23,6 +23,7 @@ a{
     justify-content: center;
     display: flex;
     align-items: center;
+    border-bottom: 1px solid #e8e8e8;
 }
 .listBox{
     display:flex;
