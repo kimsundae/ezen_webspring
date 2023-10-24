@@ -14,7 +14,8 @@ public class MemberDto {
     private String mpassword;   // 3.비밀번호
     private String mname;       // 4.이름
     private String mphone;      // 5.연락처
-    private String mrole;       // 6.회원등급( 일반회원 = user, 관리자 회원 = admin)
+    @Builder.Default
+    private String mrole = "user";       // 6.회원등급( 일반회원 = user, 관리자 회원 = admin)
 
     private LocalDateTime cdate;
     private LocalDateTime udate;

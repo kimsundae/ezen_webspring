@@ -1007,8 +1007,8 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="292" parent="1" name="springweb">
-      <IntrospectionTimestamp>2023-10-19.23:51:55</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-10-19.05:51:55</LocalIntrospectionTimestamp>
+      <IntrospectionTimestamp>2023-10-24.23:34:23</IntrospectionTimestamp>
+      <LocalIntrospectionTimestamp>2023-10-24.05:34:23</LocalIntrospectionTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="293" parent="1" name="codeflowminds">
@@ -1041,125 +1041,224 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <column id="300" parent="298" name="bno">
+    <table id="300" parent="292" name="pcategory">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="301" parent="292" name="porder">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="302" parent="292" name="pproduct">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <column id="303" parent="298" name="bno">
       <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="301" parent="298" name="cdate">
+    <column id="304" parent="298" name="cdate">
       <DasType>datetime(6)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="302" parent="298" name="udate">
+    <column id="305" parent="298" name="udate">
       <DasType>datetime(6)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="303" parent="298" name="bcontent">
+    <column id="306" parent="298" name="bcontent">
       <DasType>longtext|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="304" parent="298" name="bfile">
+    <column id="307" parent="298" name="bfile">
       <DasType>longtext|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="305" parent="298" name="btitle">
+    <column id="308" parent="298" name="btitle">
       <DasType>varchar(200)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="306" parent="298" name="bview">
+    <column id="309" parent="298" name="bview">
       <DasType>int|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>7</Position>
     </column>
-    <column id="307" parent="298" name="mno_fk">
+    <column id="310" parent="298" name="mno_fk">
       <DasType>int|0s</DasType>
       <Position>8</Position>
     </column>
-    <foreign-key id="308" parent="298" name="FK8jrx8drmrt5ojoht11v4dqpv4">
+    <foreign-key id="311" parent="298" name="FK8jrx8drmrt5ojoht11v4dqpv4">
       <ColNames>mno_fk</ColNames>
       <RefColNames>mno</RefColNames>
       <RefTableName>member</RefTableName>
     </foreign-key>
-    <index id="309" parent="298" name="PRIMARY">
+    <index id="312" parent="298" name="PRIMARY">
       <ColNames>bno</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="310" parent="298" name="FK8jrx8drmrt5ojoht11v4dqpv4">
+    <index id="313" parent="298" name="FK8jrx8drmrt5ojoht11v4dqpv4">
       <ColNames>mno_fk</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="311" parent="298" name="PRIMARY">
+    <key id="314" parent="298" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="312" parent="299" name="mno">
+    <column id="315" parent="299" name="mno">
+      <AutoIncrement>2</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="316" parent="299" name="cdate">
+      <DasType>datetime(6)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="317" parent="299" name="udate">
+      <DasType>datetime(6)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="318" parent="299" name="memail">
+      <DasType>varchar(50)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="319" parent="299" name="mname">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <column id="320" parent="299" name="mpassword">
+      <DasType>varchar(30)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+    </column>
+    <column id="321" parent="299" name="mphone">
+      <DasType>varchar(13)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+    </column>
+    <column id="322" parent="299" name="mrole">
+      <DasType>varchar(255)|0s</DasType>
+      <DefaultExpression>&apos;user&apos;</DefaultExpression>
+      <Position>8</Position>
+    </column>
+    <index id="323" parent="299" name="PRIMARY">
+      <ColNames>mno</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="324" parent="299" name="UK_2r6umf1c0uyfmvwp30vmb3gjr">
+      <ColNames>memail</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="325" parent="299" name="UK_n2q2yivqxxmkd9ryafbdfmahf">
+      <ColNames>mphone</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="326" parent="299" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <key id="327" parent="299" name="UK_2r6umf1c0uyfmvwp30vmb3gjr">
+      <UnderlyingIndexName>UK_2r6umf1c0uyfmvwp30vmb3gjr</UnderlyingIndexName>
+    </key>
+    <key id="328" parent="299" name="UK_n2q2yivqxxmkd9ryafbdfmahf">
+      <UnderlyingIndexName>UK_n2q2yivqxxmkd9ryafbdfmahf</UnderlyingIndexName>
+    </key>
+    <column id="329" parent="300" name="cno">
       <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="313" parent="299" name="cdate">
-      <DasType>datetime(6)|0s</DasType>
+    <column id="330" parent="300" name="cname">
+      <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="314" parent="299" name="udate">
-      <DasType>datetime(6)|0s</DasType>
-      <Position>3</Position>
-    </column>
-    <column id="315" parent="299" name="memail">
-      <DasType>varchar(50)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-    </column>
-    <column id="316" parent="299" name="mname">
-      <DasType>varchar(20)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-    </column>
-    <column id="317" parent="299" name="mpassword">
-      <DasType>varchar(30)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>6</Position>
-    </column>
-    <column id="318" parent="299" name="mphone">
-      <DasType>varchar(13)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>7</Position>
-    </column>
-    <column id="319" parent="299" name="mrole">
-      <DasType>varchar(255)|0s</DasType>
-      <DefaultExpression>&apos;user&apos;</DefaultExpression>
-      <Position>8</Position>
-    </column>
-    <index id="320" parent="299" name="PRIMARY">
-      <ColNames>mno</ColNames>
+    <index id="331" parent="300" name="PRIMARY">
+      <ColNames>cno</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="321" parent="299" name="UK_2r6umf1c0uyfmvwp30vmb3gjr">
-      <ColNames>memail</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <index id="322" parent="299" name="UK_n2q2yivqxxmkd9ryafbdfmahf">
-      <ColNames>mphone</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <key id="323" parent="299" name="PRIMARY">
+    <key id="332" parent="300" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="324" parent="299" name="UK_2r6umf1c0uyfmvwp30vmb3gjr">
-      <UnderlyingIndexName>UK_2r6umf1c0uyfmvwp30vmb3gjr</UnderlyingIndexName>
+    <column id="333" parent="301" name="ono">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="334" parent="301" name="oprice">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="335" parent="301" name="pno">
+      <DasType>int|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <foreign-key id="336" parent="301" name="FKtkyjm0mydll2cgjb2d7yee6pv">
+      <ColNames>pno</ColNames>
+      <RefColNames>pno</RefColNames>
+      <RefTableName>pproduct</RefTableName>
+    </foreign-key>
+    <index id="337" parent="301" name="PRIMARY">
+      <ColNames>ono</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="338" parent="301" name="FKtkyjm0mydll2cgjb2d7yee6pv">
+      <ColNames>pno</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="339" parent="301" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="325" parent="299" name="UK_n2q2yivqxxmkd9ryafbdfmahf">
-      <UnderlyingIndexName>UK_n2q2yivqxxmkd9ryafbdfmahf</UnderlyingIndexName>
+    <column id="340" parent="302" name="pno">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="341" parent="302" name="pname">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="342" parent="302" name="cno_fk">
+      <DasType>int|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <foreign-key id="343" parent="302" name="FKteqs3pp5xktqwljoqnvvr928x">
+      <ColNames>cno_fk</ColNames>
+      <RefColNames>cno</RefColNames>
+      <RefTableName>pcategory</RefTableName>
+    </foreign-key>
+    <index id="344" parent="302" name="PRIMARY">
+      <ColNames>pno</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="345" parent="302" name="FKteqs3pp5xktqwljoqnvvr928x">
+      <ColNames>cno_fk</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="346" parent="302" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>

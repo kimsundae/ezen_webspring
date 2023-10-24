@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 // DI( Dependency injection ) : 의존성 주입 [ 스프링이 객체를 관리 ]
 @RestController
 @RequestMapping("/member")
-@CrossOrigin("http://localhost:3000") // 교차 리소스
+@CrossOrigin("http://192.168.17.138:3000") // 교차 리소스
 public class MemberController {
     @Autowired
     private HttpServletRequest request;
@@ -69,7 +69,6 @@ public class MemberController {
     @PostMapping("/login")
     public String login( @RequestBody MemberDto memberDto , HttpSession session ){
         MemberDto loginDto = memberService.login( memberDto );
-        System.out.println("loginDto = " + loginDto);
         if( loginDto != null ){
             session.setAttribute("loginDto" , loginDto );
             return "로그인 되었습니다.";

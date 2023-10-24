@@ -12,7 +12,7 @@ export default function Login( props ){
             }
         // 4. !! Axios 통신 [ Spring CONTROOLER 매핑 확인 후 ]
         axios
-            .post('http://localhost:80/member/login',info)
+            .post('http://192.168.17.138:80/member/login',info)
             .then( r=> { console.log(r);
                 alert(r.data)
             })
