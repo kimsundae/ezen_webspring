@@ -1,0 +1,25 @@
+.formWrap{
+    margin-top: 50px;
+    text-align: center;
+}
+.idBox{
+    margin-bottom: 10px;
+}
+.pwBox{
+    margin-bottom: 70px;
+}
+.memail , .mpassword{
+    padding: 6px;
+    border: none;
+    border-bottom: 1px solid #e8e8e8;
+    outline: none;
+}
+.loginBtn{
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: #282c34;
+}
+.findBox{
+    font-size: 12px;
+}

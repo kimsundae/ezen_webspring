@@ -1,0 +1,24 @@
+.formWrap{
+
+    margin: 50px auto;
+    width:300px;
+}
+
+.formWrap div{
+    margin-bottom: 10px;
+    text-align: left;
+}
+.formWrap div input{
+    padding: 6px;
+    border: 1px solid #e8e8e8;
+    outline: none;
+    width: 100%;
+}
+.formWrap .signup{
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: #282c34;
+    background-color: #282c34;
+    color: white;
+}
