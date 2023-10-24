@@ -16,6 +16,7 @@ import 도서목록 from './example/task/task1/과제1_도서목록'
 import Todo from './example/task/task2/TodoList'
 import Login from './member/Login'
 import Signup from './member/Signup'
+import Axios컴포넌트 from "./example/day04/1_Axios컴포넌트";
 import styles from './css/Header.css'
 export default function Index(props){
     return(<>
@@ -35,6 +36,8 @@ export default function Index(props){
                         <Route path={'/example/day02/CommentList'} element={<CommentList/>}></Route>
                         <Route path={'/example/task/task1'} element={<도서목록/>}></Route>
                         <Route path={'/example/task/task2'} element={<Todo/>}></Route>
+
+                        <Route path={'/example/day04/Axios컴포넌트'} element={<Axios컴포넌트/>}></Route>
                         {/*Member*/}
                         <Route path={'/login'} element={<Login/>}></Route>
                         <Route path={'/signup'} element={<Signup/>}></Route>
