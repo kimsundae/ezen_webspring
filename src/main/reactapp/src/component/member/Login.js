@@ -14,7 +14,8 @@ export default function Login( props ){
         axios
             .post('http://192.168.17.138:80/member/login',info)
             .then( r=> { console.log(r);
-                alert(r.data)
+                alert(r.data);
+                window.location.href = '/example'
             })
         // CORS policy 오류 발생 해결방안
             // - 스프링 controller 클래스 @
