@@ -1,4 +1,4 @@
-import jdk.vm.ci.meta.Local
+
 
 plugins {
     id 'java'
@@ -36,48 +36,51 @@ tasks.named('test') {
 def frontendDir  = "$projectDir/src/main/reactapp"; //$projectDir/src/main/{리액트프로젝트명}
 // $projectDir : 현재 build.gradle 프로젝트의 위치
 // 2. 리액트
-    sourceSets{
-        main{
-            resources{ srcDris = ["$projectDir/src/main/resources"] }
+sourceSets {
+    main {
+        resources { srcDirs = ["$projectDir/src/main/resources"]
         }
     }
+}
+
 // 3. 이동[ 원본 이동x, 복사 이동O ]
-    processResources{ dependsOn "copyReactBuildFiles"}
+processResources { dependsOn "copyReactBuildFiles" }
 
 // 4. [1] 리액트 설치 [ 리액트 라이브러리 없으면 npm update ]
-    tesk installReact( type : Exec ){
+    task installReact( type : Exec ){
     //    dependOn "installReact"
         workingDir "$frontendDir" // 리액트코드가 있는 폴더경로
-        inpus.dir "$frontendDir" // 빌드했을 때 저장할 폴더경로
+        inputs.dir "$frontendDir" // 빌드했을 때 저장할 폴더경로
         group = BasePlugin.BUILD_GROUP
         // npm 호출
             // 1. 운영체제가 window 환경 이면
-        if( System.getProperty('os.name').toLowerCase( Locale.ROOT ).contains('window')){
-            commandLine "npm.cmd" , "audit" , "fix"
-            commandLine "npm.cmd" , "install"
-        }else{// 운영체제가 아니면
-            commandLine "npm" , "audit" , "fix"
-            commandLine "npm" , "install"
+        if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+            commandLine "npm.cmd", "audit", "fix"
+            commandLine 'npm.cmd', 'install' }
+        else {//운영체제가 아니라면
+            commandLine "npm", "audit", "fix" commandLine 'npm', 'install'
         }
+
     }
 
 // 5. [2] 리액트 빌드
-tesk buildReact( type : Exec ){
-    dependOn "installReact"
+task buildReact( type : Exec ){
+    dependsOn "installReact"
     workingDir "$frontendDir" // 리액트코드가 있는 폴더경로
     inputs.dir "$frontendDir" // 빌드했을 때 저장할 폴더경로
     group = BasePlugin.BUILD_GROUP
     // npm 호출
     // 1. 운영체제가 window 환경 이면
-    if( System.getProperty('os.name').toLowerCase( Locale.ROOT ).contains('window')){
-        commandLine "npm.cmd" , "run-script" , "build"
-    }else{// 운영체제가 아니면
-        commandLine "npm" , "run-script" , "build"
+    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+        commandLine "npm.cmd", "run-script", "build"
+    } else {
+        commandLine "npm", "run-script", "build"
     }
+
 }
 // 6. [3] 리액트 빌드파일 복사
-tesk copyReactBuildFiles( type : copy ){
-    dependOn "buildReact"
-    from "$frontendDir/build" //복사할 파일이 어디에서
-    to "$projectDir/src/main/resources/static"// 복사할 파일을 어디로
+task copyReactBuildFiles(type: Copy) {
+    dependsOn "buildReact"
+    from "$frontendDir/build"
+    into "$projectDir/src/main/resources/static"
 }

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 // DI( Dependency injection ) : 의존성 주입 [ 스프링이 객체를 관리 ]
 @RestController
 @RequestMapping("/member")
-@CrossOrigin("http://192.168.17.138:3000") // 교차 리소스
+//@CrossOrigin("http://192.168.17.138:3000") // 교차 리소스
 public class MemberController {
     @Autowired
     private HttpServletRequest request;
@@ -85,4 +85,5 @@ public class MemberController {
         }else
             return "로그아웃 실패되었습니다.";
     }
+    //
 }

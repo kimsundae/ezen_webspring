@@ -14,8 +14,10 @@ export default function Signup( props ){
             .post('http://192.168.17.138:80/member',signupInfo)
             .then( r =>{
                 console.log(r)
-                if(r)
+                if(r) {
                     alert('회원가입 성공')
+                    window.location.href = "/"
+                }
                 else
                     alert('회원가입 실패')
             })
