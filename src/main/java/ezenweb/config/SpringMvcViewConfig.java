@@ -14,7 +14,8 @@ public class SpringMvcViewConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/**/{spring}:\\w+}").setViewName("forward:/");
         // spring 2.6 이상 [ 해당 패턴 경로 못찾음 ]
         // 해결방안 application.properties[spring.mvc.pathmatch.matching-strategy=ant_path_matcher]
-        registry.addViewController( "/{spring:\\w+}/**/**/**{spring:?!(\\.js|\\.css)$}").setViewName("forward:/");
+        registry.addViewController( "/{spring:\\w+}/**{spring:?!(\\.js|\\.css)$}").setViewName("forward:/");
+
 
     }
 }
