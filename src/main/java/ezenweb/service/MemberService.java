@@ -80,6 +80,11 @@ public class MemberService {
         memberEntityRepositoryEntity.deleteById(mno);
         return true;
     }
+    // 7. [R] 이메일 중복찾기
+    public boolean existsByMemail( String memail ){
+        return memberEntityRepositoryEntity.existsByMemail(memail);
+    }
+
     // ---------- 과제5 -------------- //
     // 아이디 찾기
     public String findId( String name, String phoneNumber ){

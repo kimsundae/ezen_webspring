@@ -33,9 +33,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //root.render(<React.StrictMode><CommentList /></React.StrictMode>);
 //root.render(<React.StrictMode><TodoList /></React.StrictMode>);
 //root.render(<React.StrictMode><라우터컴포넌트 /></React.StrictMode>);
-//root.render(<React.StrictMode><Index /></React.StrictMode>);
+root.render(<><Index /></>);
 //root.render(<상태관리컴포넌트 />);
-root.render(<생명주기컴포넌트/>)
+//root.render(<생명주기컴포넌트/>)
 
 
 // If you want to start measuring performance in your app, pass a function

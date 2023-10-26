@@ -33,11 +33,19 @@ public class MemberController {
         return result;
     }
      */
-    // 세션 적용
+    // 세션 적용 회원정보 호출
     @GetMapping("")
     public MemberDto getMember(){
         return memberService.getMember();
     }
+    // 7. [R] 이메일 중복
+    @GetMapping("/findMemail")
+    public boolean getFindMemail( @RequestParam String memail ){
+        System.out.println("memail = " + memail);
+        return memberService.existsByMemail(memail);
+    }
+
+
     // 3. [U] 회원정보 수정
     @PutMapping("")
     public boolean doPut(@RequestBody MemberDto memberDto){

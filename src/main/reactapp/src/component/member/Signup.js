@@ -1,5 +1,6 @@
 
 import styles from '../css/Signup.css'
+import {useState , useEffect }  from 'react'
 import axios from "axios";
 export default function Signup( props ){
     // 1. 회원가입 버튼을 클릭했을 때
@@ -11,7 +12,7 @@ export default function Signup( props ){
             mphone: document.querySelector('.mphone').value
         }
         axios
-            .post('http://192.168.17.138:80/member',signupInfo)
+            .post('/member',signupInfo)
             .then( r =>{
                 console.log(r)
                 if(r) {
@@ -23,11 +24,36 @@ export default function Signup( props ){
             })
     }
 
+    let [ emailValue , setEmailValue] = useState('')
+    let [ memailCheck, setMemailCheck ] = useState('')
+    const emailInputChange = (e) => {
+        let memail = e.target.value;
+        setEmailValue(memail);
+        //-----------------//
+        axios
+            .get('/member/findMemail' , {params : {'memail' : memail } })
+            .then( r=> {
+                console.log(r)
+                if (r.data) setMemailCheck('사용 중인 아이디입니다.');
+                    else setMemailCheck('사용가능한 아이디입니다.');
+
+            })
+    }
+   /* const emailInputChange = (e) => {
+       let memail =  document.querySelector('.memail').value; console.log(emailInputChange);
+    }*/
+
+
     return(<>
         <form className={"formWrap"}>
             <div>
-                 <div>이메일[아이디]</div>  <input type={'text'} placeholder={'@포함 7~30글자'} className={'memail'}/>
+                 <div>이메일[아이디]</div>
+                <input type={'text'} value={emailValue}
+                       onChange={emailInputChange}
+                       placeholder={'@포함 7~30글자'}
+                       className={'memail'}/>
             </div>
+            <span>{memailCheck}</span>
             <div>
                 <div>비밀번호</div>  <input type={"password"} placeholder={'특수문자 조합 5~30글자'} className={'mpassword'}/>
             </div>
