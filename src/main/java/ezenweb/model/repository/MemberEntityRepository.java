@@ -18,5 +18,6 @@ public interface MemberEntityRepository extends JpaRepository< MemberEntity, Int
         // 3. 동일한 이메일 있을 때 'TRUE'없을 때 FALSE 반환
     boolean existsByMemail(String memail);
         // 4. 조건에 and/or 있을 때 이메일과 이름이 같을 때
-        //
+        // select * from member where mname = 변수 and memail = 변수 ;
+        MemberEntity findByMnameAndMemail( String mname ,  String memail);
 }

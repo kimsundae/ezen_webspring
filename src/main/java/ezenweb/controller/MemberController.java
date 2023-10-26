@@ -86,12 +86,13 @@ public class MemberController {
     }
     // 로그아웃
     @GetMapping("/logout")
-    public String logout( @RequestParam int mno , HttpSession session ){
-        if( ((MemberDto)session.getAttribute("loginDto")).getMno() == mno ){
+    public boolean logout( HttpSession session ){
+        if( ((MemberDto)session.getAttribute("loginDto")) != null ){
             session.setAttribute("loginDto", null);
-            return "로그아웃 되었습니다.";
+            return true;
         }else
-            return "로그아웃 실패되었습니다.";
+            return false;
+
     }
     //
 }
