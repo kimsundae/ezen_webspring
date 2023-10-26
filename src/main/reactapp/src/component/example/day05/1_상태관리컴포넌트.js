@@ -12,6 +12,7 @@ export default function 상태관리컴포넌트(){
     *           - 지역변수X, 랜더링할 때 재선언X, 랜더링할 때 상태[데이터] 유지
     *       [1] : 그 값을 수정할 수 있는 함수. bound dispatchSetState
     *           - * 해당 컴포넌트만 재실행[랜더링]
+    *           - setValue2( 변경할값 ) : 변경할값에 계산식 있을 경우 앞에서 계산 후 대입
     *   let [ 변수명 , set함수 ] = useState( 초기값 )
     * */
     let 상태함수 = useState('훅이란 무엇인가?');
@@ -19,7 +20,10 @@ export default function 상태관리컴포넌트(){
     console.log(상태함수[0]);
     console.log(상태함수[1])
     let[ value2, setValue2 ] = useState(10);
-    function value2증가(e){setValue2(value2++);}
+    function value2증가(e){
+        value2++;
+        setValue2(value2);
+    }
 
     alert('랜더링')
     let value3 = '텍스트입력';
