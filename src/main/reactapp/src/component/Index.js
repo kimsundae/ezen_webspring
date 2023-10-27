@@ -17,8 +17,8 @@ import Todo from './example/task/task2/TodoList'
 import Login from './member/Login'
 import Signup from './member/Signup'
 import Axios컴포넌트 from "./example/day04/1_Axios컴포넌트";
-
 import styles from './css/Header.css'
+import Info from "./member/Info";
 export default function Index(props){
     return(<>
         <div className={'webContainer'}>
@@ -42,6 +42,7 @@ export default function Index(props){
                         {/*Member*/}
                         <Route path={'/login'} element={<Login/>}></Route>
                         <Route path={'/signup'} element={<Signup/>}></Route>
+                        <Route path={'/myPage'} element={<Info/>}></Route>
 
                     </Routes>
                 <Footer/>

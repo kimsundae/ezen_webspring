@@ -56,6 +56,7 @@ export default function Header( props ){
                     </>)
                     : (<>
                         <li>{login.memail}님</li>
+                        <li><Link to='/myPage'> 내정보 </Link></li>
                         <li> <div onClick={Mlogout}>로그아웃 </div></li>
                     </>)}
             </ul>
