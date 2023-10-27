@@ -17,6 +17,7 @@ export default function Header( props ){
                 console.log(r);
                 if(r.data){
                     alert('로그아웃 되었습니다.');
+                    sessionStorage.removeItem('login_token')
                     setLogin( null )
                 }
                 else
@@ -28,7 +29,9 @@ export default function Header( props ){
         axios.get('/member').then(r=>{
             // 2. 만약에 로그인이 되어 있으면
             if( r.data != '' ){
-                setLogin( r.data );
+
+                sessionStorage.setItem('login_token' , JSON.stringify(r.data))
+                setLogin( JSON.parse( sessionStorage.getItem('login_token')));
             }
         })
     }, []);
