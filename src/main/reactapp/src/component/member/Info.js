@@ -7,7 +7,7 @@ export default function Info( props ){
 
     // 로그인 정보를 호출해서 출력하기. [ 최초 1번 실행 ]
     useEffect(() => {
-        axios.get('/member/get').
+        axios.get('/member').
         then( r => { setMember( r.data );} )
     }, []);
 
@@ -31,31 +31,88 @@ export default function Info( props ){
 
         setMember( {...member, mname : mnameInput })
     }
+    // 전화번호 수정시
     const mphoneInputChange = (e) => {
         setMember({...member, mphone: e.target.value}) ;
     }
+    //탈퇴 함수
+    const DeleteMember = (e) => {
+        if( !window.confirm('정말 탈퇴하시겠습니까?'))return;
 
+        axios
+            .delete('/member' , {params:{ 'mno' : member.mno }})
+            .then( r=> {
+                if (r.data) {
+                    alert('회원탈퇴되었습니다');
+                    sessionStorage.removeItem('login_token')
+                    window.location.href = '/'
+                } else
+                    alert('회원 탈퇴 실패');
+            })
+    }
+    const [ newPassword , setNewPassword ] = useState({mpassword: '', mpassword2 : ''})
+    const onUpdate = (e) => {
+
+        // 기존 비밀번호가 일치한지 유효성검사[x] --> 백엔드 해야할 일
+        // 새로운 비밀번호 2개 일치한지 유효성검사 --> 프론트엔드 해야할 일
+        if( newPassword.mpassword != newPassword.mpassword2 ) return;
+        // 1. spring 서비스에게 보낼 데이터 구성 dto[ mno, mname, mpassword, mphone ]
+        let info = {
+            mno: member.mno,
+            mname: member.mname,
+            mpassword: newPassword.mpassword,
+            mphone: member.mphone
+        }; console.log(info)
+        axios
+            .put("/member" , info)
+            .then(r=>{
+                if(r){
+                    alert('수정 성공');
+                    // 세션 수정 (현재 info 저장중)
+                    sessionStorage.setItem('login_token' , info);
+                    window.location.href = '/'
+                }
+                else
+                    alert('수정 실패')
+            })
+    }
 
     return(<>
-        <div className={'loginContainer'}>
+        <div>
             <h3> ReactEzen Info </h3>
-            <form>
-                회원등급 <div>{member != null ? member.mrol : ''}</div>
-                이메일 <input value={member!=null?member.email:''} disabled type={"text"} placeholder={"@포함 7~30글자"} className={'memail'}/>
-                새 비밀번호 <input type={"password"} placeholder={"특수문자 조합 5~30글자"} className={'mpassword'}/>
-                새 비밀번호 확인 <input type={"password"} placeholder={"특수문자 조합 5~30글자"} className={'mpassword2'}/>
+            <form className={'formWrap'}>
+                <div>
+                    회원등급 <div>{member != null ? member.mrol : ''}</div>
+                </div>
+                <div>
+                    이메일 <input value={member!=null?member.email:''} disabled type={"text"} placeholder={"@포함 7~30글자"} className={'memail'}/>
+                </div>
+                <div>
+                    새 비밀번호 <input type={"password"} placeholder={"특수문자 조합 5~30글자"} className={'mpassword'}
+                              value={newPassword.mpassword}
+                onChange={(e)=>{setNewPassword({...newPassword,mpassword: e.target.value})}}
+            />
+                </div>
+                <div>
+                새 비밀번호 확인 <input type={"password"} placeholder={"특수문자 조합 5~30글자"} className={'mpassword2'}
+                value={newPassword.mpassword2}
+                onChange={(e)=>{setNewPassword({...newPassword,mpassword2: e.target.value})}}
+            />
+                    </div>
+                <div>
                 이름 <input value={member!=null?member.mname:''} type={"text"} placeholder={"이름"} className={'mname'}
                           onChange={mnameInputChange}
-                />
+                /></div>
+                <div>
                 전화번호 <input
                 value={member!=null?member.mphone:''}
                 type={"text"}
                 placeholder={"연락처"}
                 className={'mphone'}
                 onChange={mphoneInputChange}
-            />
-                <button type={"button"}>정보 수정</button>
-                <button type={"button"}>회원 탈퇴</button>
+            /></div>
+                <button type={"button"} onClick={onUpdate}>정보 수정</button>
+                <button type={"button"} onClick={DeleteMember}>회원 탈퇴</button>
             </form>
         </div>
     </>);

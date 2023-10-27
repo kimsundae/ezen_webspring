@@ -34,6 +34,7 @@ public class MemberService {
         if( memberEntity.getMno() >= 1 ) { return true;}
         return false;
     }
+
     /* 세션 이전
     // 2. [R] 회원정보 호출
     public MemberDto getMember( int mno ){
@@ -54,9 +55,9 @@ public class MemberService {
         // 1.
         Object session = request.getSession().getAttribute("loginDto");
         // 2. 세션 검증
-        if( session != null )
-            return (MemberDto)session;
-
+        if( session != null ) {
+            return (MemberDto) session;
+        }
         return null;
     }
     // 3. [U] 회원정보 수정
@@ -70,6 +71,8 @@ public class MemberService {
             result.setMname(memberDto.getMname());
             result.setMpassword(memberDto.getMpassword());
             result.setMphone(memberDto.getMphone());
+            // 세션수정
+            request.getSession().setAttribute("loginDto",result.toDto() );
         }
         return true;
     }
@@ -78,6 +81,9 @@ public class MemberService {
     public boolean deleteMember( int mno ){
         System.out.println("mno = " + mno);
         memberEntityRepositoryEntity.deleteById(mno);
+        // 4. 삭제성공시
+        // 로그아웃 함수
+        request.getSession().setAttribute("loginDto",null);
         return true;
     }
     // 7. [R] 이메일 중복찾기

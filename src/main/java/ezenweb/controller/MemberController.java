@@ -55,8 +55,8 @@ public class MemberController {
     // 4. [D] 회원탈퇴
     @DeleteMapping("")
     public boolean doDelete( @RequestParam int mno ){
-        boolean result = memberService.deleteMember( mno );
-        return result;
+        System.out.println("mno = " + mno);
+        return memberService.deleteMember( mno );
     }
     // ------------- 과제5 ---------------- //
     @GetMapping("/findId")
