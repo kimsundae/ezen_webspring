@@ -25,7 +25,7 @@ public class MemberEntity extends BaseTime{
     // name = "필드명" , length=글자수 , nullable = false -> not null null 불가, unique = true 중복불가 ]
     private String memail;      // 2.이메일[ 회원아이디 대체 ]
 
-    @Column( length = 30, nullable = false) // 해당 필드 선정 [ 최대 30글자, not null ]
+    @Column( length = 100, nullable = false) // 해당 필드 선정 [ 최대 30글자, not null ]
     private String mpassword;   // 3.비밀번호
     @Column( length = 20, nullable = false ) // 해당 필드 선정 [ 최대 20글자, not null]
     private String mname;       // 4.이름

@@ -4,6 +4,12 @@ import ezenweb.model.dto.MemberDto;
 import ezenweb.model.entity.MemberEntity;
 import ezenweb.model.repository.MemberEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +23,29 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MemberService {
+public class MemberService implements UserDetailsService {
+
+    // ------------------------------------------ //
+        // 1. UserDetailsService 구현체
+        // 2. 시큐리티 인증 처리해주는 메소드 구현 [ loaduserByUsername ]
+        // 3. loadUserByUsername 메소드는 무조건 UserDaetails객체를 반환해야함
+        // 4. UserDetails객체를 이용한 패스워드 검증과 사용자 권한을 확인하는 동작(메서드)
+     // passwordEncoder
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("username = " + username);
+
+        // 인증절차 684
+        // 1. 사용자의 아이디만으로 사용자 정보를 로딩[불러오기]
+        // 2. 로딩[불러오기]된 사용자의 정보를 이용해서 패스워드를 검증
+
+        return null;
+    }
+
+
+    // ------------------------------------------ //
 
     // Controller -> Service -> Repository
     // Controller <- Service <- Repository
@@ -27,7 +55,12 @@ public class MemberService {
     private HttpServletRequest request;
     // 1. [C] 회원가입
     public boolean postMember( MemberDto memberDto ){
-        System.out.println("memberDto = " + memberDto);
+
+        // --- 암호화 --- //
+            // - 입력받은 비밀번호 [ memberDto.getMpassword() ]를 암호화해서 다시 memberDto에 저장
+        memberDto.setMpassword( passwordEncoder.encode(memberDto.getMpassword()));
+
+
         MemberEntity memberEntity = memberEntityRepositoryEntity.save(memberDto.toEntity());
         // 2. insert된 엔티티 확인 후 성공/실패 유무
             // 3. 만약에 회원번호가 0보다 크면 ( auto_increment 적용 됨. )

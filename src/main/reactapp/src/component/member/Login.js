@@ -22,7 +22,35 @@ export default function Login( props ){
     }
 
     return(<>
-        <form className={'formWrap'}>
+        <form action={"/member/login"} method={"post"} className={'formWrap'}>
+            <div className={'idBox'}>
+                아이디  <input type={'text'} placeholder={'email address'} name={"memail"} className={'memail'}/>
+            </div>
+            <div className={'pwBox'}>
+                비밀번호  <input type={"password"} placeholder={'password'} name={"mpassword"} className={'mpassword'}/>
+            </div>
+            <div className={'findBox'}>
+                <Link to={''}>아이디찾기 |</Link><Link to={''}> 비밀번호 찾기 </Link>
+                <button type={'submit'} className={'loginBtn'}>로그인</button>
+            </div>
+        </form>
+    </>)
+}
+/*
+// AXIOS 이용한 로그인 처리 형식
+<div className={'idBox'}>
+    아이디  <input type={'text'} placeholder={'email address'} className={'memail'}/>
+</div>
+<div className={'pwBox'}>
+    비밀번호  <input type={"password"} placeholder={'password'} className={'mpassword'}/>
+</div>
+<div className={'findBox'}>
+    <Link to={''}>아이디찾기 |</Link><Link to={''}> 비밀번호 찾기 </Link>
+    <button onClick={onLogin} type={'button'} className={'loginBtn'}>로그인</button>
+</div>*/
+
+
+/*<form action={"/member/login"} method={"POST"} className={'formWrap'}>
             <div className={'idBox'}>
                 아이디  <input type={'text'} placeholder={'email address'} className={'memail'}/>
             </div>
@@ -31,8 +59,8 @@ export default function Login( props ){
             </div>
             <div className={'findBox'}>
                 <Link to={''}>아이디찾기 |</Link><Link to={''}> 비밀번호 찾기 </Link>
-                <button onClick={onLogin} type={'button'} className={'loginBtn'}>로그인</button>
+                <button type={'submit'} className={'loginBtn'}>로그인</button>
             </div>
         </form>
-    </>)
-}
+* */
+
