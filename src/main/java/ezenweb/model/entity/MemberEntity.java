@@ -3,6 +3,7 @@ package ezenweb.model.entity;
 import ezenweb.model.dto.MemberDto;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@Builder
+@Builder @DynamicInsert
 public class MemberEntity extends BaseTime{
     @Id // 해당 필드를 pk로 선정
     @GeneratedValue( strategy = GenerationType.IDENTITY ) // auto_increment
@@ -32,7 +33,7 @@ public class MemberEntity extends BaseTime{
     @Column( length = 13, nullable = false, unique = true ) // 해당 필드 선정 [ 최대 3글자, not null, unique ]
     private String mphone;      // 5.연락처
     @Column // 해당 필드 선정
-    @ColumnDefault( "'user'" ) // ColumDefault("초기값") ColumnDefault("'문자열일 경우'")
+    @ColumnDefault( "'ROLE_USER'" ) // ColumDefault("초기값") ColumnDefault("'문자열일 경우'")
     private String mrole;       // 6.회원등급( 일반회원 = user, 관리자 회원 = admin)
     @Builder.Default
     @OneToMany( mappedBy = "memberEntity" ) // 하나가 다수에게 [ PK ] // 실제 DB에는 엔티티의 ID만 저장

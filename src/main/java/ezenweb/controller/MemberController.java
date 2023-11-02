@@ -84,7 +84,7 @@ public class MemberController {
         else
             return "로그인 실패되었습니다.";
     }
-    // 로그아웃
+/*    // 로그아웃
     @GetMapping("/logout")
     public boolean logout( HttpSession session ){
         if( ((MemberDto)session.getAttribute("loginDto")) != null ){
@@ -93,6 +93,6 @@ public class MemberController {
         }else
             return false;
 
-    }
-    //
+    }*/
+
 }

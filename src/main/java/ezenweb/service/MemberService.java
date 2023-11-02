@@ -4,6 +4,7 @@ import ezenweb.model.dto.MemberDto;
 import ezenweb.model.entity.MemberEntity;
 import ezenweb.model.repository.MemberEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,16 +33,42 @@ public class MemberService implements UserDetailsService {
         // 4. UserDetails객체를 이용한 패스워드 검증과 사용자 권한을 확인하는 동작(메서드)
      // passwordEncoder
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
+    // 9
+    public MemberDto getMember(){
+        // ! : 시큐리티 사용하기 전에는 서블릿 세션을 이용한 로그인 상태 저장
+        // 시큐리티 사용할 때는 일단 서블릿 세션이 아니고 시큐리티 저장소 이용!!!
+        System.out.println("시큐리티에 저장된 세션 정보 저장소 : " + SecurityContextHolder.getContext());
+        System.out.println( "시큐리티에 저장된 세션 정보 저장소 저장된 인증 : "
+                +SecurityContextHolder.getContext().getAuthentication());
+        System.out.println( "시큐리티에 저장된 세션 정보 저장소 저장된 인증 호출: "
+                +SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        // 인증에 성공한 정보 호출 [ 세션 호출 ]
+        Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println( o.toString() );
+        // 1. 만약에 인증결과가 실패했을 때/없을 때 anonymousUser
+        if( o.equals("anonymousUser")){ return null; } // 로그인 안함
+        // 2. 인증결과에 저장된 UserDetails로 타입 반환
+        UserDetails userDetails = (UserDetails)o;
+        // 3. UserDetails의 정보를 memberDto에 담아서 반환
+        return MemberDto.builder().memail(userDetails.getUsername()).build();
+    }
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("username = " + username);
+    public UserDetails loadUserByUsername(String memail) throws UsernameNotFoundException {
+        // * login페이지에서 form을 통해 전송된 아이디 받고( 패스워드 없음 )
+        System.out.println("username = " + memail);
 
-        // 인증절차 684
-        // 1. 사용자의 아이디만으로 사용자 정보를 로딩[불러오기]
+        // 인증절차 순서684
+        // 1. 사용자의 아이디만으로 사용자 정보[엔티티]를 로딩[불러오기]
+        MemberEntity memberEntity = memberEntityRepositoryEntity.findByMemail(memail);
+        //없는 아이디이면 // throw : 예외처리 던지기 // new UsernameNotFoundException() : username 없을 때 사용하는 예외 클래스
+        if( memberEntity == null ){ throw new UsernameNotFoundException("없는 아이디입니다.");}
         // 2. 로딩[불러오기]된 사용자의 정보를 이용해서 패스워드를 검증
-
-        return null;
+            // 2-1 있는 아이디이면
+        UserDetails userDetails = User.builder()
+                .username(memberEntity.getMemail())
+                .password(memberEntity.getMpassword())
+                .authorities("ROLE_USER").build();
+        return userDetails;
     }
 
 
@@ -82,17 +109,17 @@ public class MemberService implements UserDetailsService {
         return null;
     }
      */
-    //세션 적용 회원정보 호출 메서드
+    /*//세션 적용 회원정보 호출 메서드
     @Transactional
     public MemberDto getMember(){
-        // 1.
+        // 1. 세션 호출
         Object session = request.getSession().getAttribute("loginDto");
         // 2. 세션 검증
         if( session != null ) {
             return (MemberDto) session;
         }
         return null;
-    }
+    }*/
     // 3. [U] 회원정보 수정
     @PutMapping("")
     @Transactional
@@ -188,6 +215,7 @@ public class MemberService implements UserDetailsService {
         }
         return null;
     }
+
 
 
 }
