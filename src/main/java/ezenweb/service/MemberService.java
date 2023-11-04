@@ -87,7 +87,7 @@ public class MemberService implements UserDetailsService {
             // - 입력받은 비밀번호 [ memberDto.getMpassword() ]를 암호화해서 다시 memberDto에 저장
         memberDto.setMpassword( passwordEncoder.encode(memberDto.getMpassword()));
 
-
+        System.out.println(memberDto);
         MemberEntity memberEntity = memberEntityRepositoryEntity.save(memberDto.toEntity());
         // 2. insert된 엔티티 확인 후 성공/실패 유무
             // 3. 만약에 회원번호가 0보다 크면 ( auto_increment 적용 됨. )

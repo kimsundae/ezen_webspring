@@ -1,5 +1,6 @@
 package ezenweb.config;
 
+import ezenweb.controller.AuthLoginController;
 import ezenweb.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private MemberService memberService;
+    @Autowired
+    private AuthLoginController authLoginController;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -26,10 +32,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         .loginProcessingUrl("/member/login")    // 3. 시큐리티 로그인(인증)처리 요청시 사용할 HTTP 주소
                 // 시큐리티 사용하기 전에 MemberController 해서 정의한 로그인/로그아웃 함수를 없애기
                 // HTTP '/member/login' Post요청시 --> MemberService의 load
-        .defaultSuccessUrl("/")                 // 4. 로그인 성공시 이동할 HTTP 주소
-        .failureUrl("/login")   // 5. 만약에 로그인 실패시 이동할 HTTP 주소
+      //  .defaultSuccessUrl("/")                 // 4. 로그인 성공시 이동할 HTTP 주소
+      //  .failureUrl("/login")   // 5. 만약에 로그인 실패시 이동할 HTTP 주소
         .usernameParameter("memail")                // 6. 로그인시 입력받은 아이디의 변수명 정의
-        .passwordParameter("mpassword");            // 7. 로그인 시 입력받은 비밀번호의 변수명 정의
+        .passwordParameter("mpassword")            // 7. 로그인 시 입력받은 비밀번호의 변수명 정의
+                .successHandler(authLoginController) // 로그인 성공했을 때 해당 클래스 매핑
+                        .failureHandler(authLoginController); // 로그인 실패했을 때 해당 클래스 매핑
+
+
         // 2. 로그아웃 커스텀 [ 시큐리티 사용 전에 Controller, Service에 구현한 logout 관련 메소드 제거]
         http.logout()                   // 1. 로그인(인증) 로그아웃 처리
                 .logoutRequestMatcher( new AntPathRequestMatcher("/member/logout")) // 2. 로그아웃 처리할 HTTP 주소 정의
@@ -43,8 +53,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // configure(WebSecurity web) : 웹 시큐리티 보안 담당하는 메서드
-    @Autowired
-    private MemberService memberService;
     @Override
     public void configure(AuthenticationManagerBuilder auth ) throws Exception {
         //super.configure(web);

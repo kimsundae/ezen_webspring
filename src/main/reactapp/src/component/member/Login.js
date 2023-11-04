@@ -1,37 +1,45 @@
-import styles from '../css/Login.css'
+import '../css/Login.css'
 import {Link} from "react-router-dom";
 import axios from "axios";
 export default function Login( props ){
     // 로그인 버튼을 클릭했을 때
     function onLogin(e){
         // 2. axios를 이용한 Restful api로 spring Controller 데이터 전달
-            // 3. 데이터구성
-            let info = {
+            // 3-1. 데이터구성[json]
+            /*let info = {
                 memail : document.querySelector('.memail').value,
                 mpassword: document.querySelector('.mpassword').value
-            }
+            }*/
+            // 3-2 데이터구성[ FORM ]
+            let loginForm = document.querySelectorAll('.loginForm')[0]
+            let loginFormData = new FormData( loginForm )
         // 4. !! Axios 통신 [ Spring CONTROOLER 매핑 확인 후 ]
         axios
-            .post('/member/login',info)
-            .then( r=> { console.log(r);
-                alert(r.data);
-                window.location.href = '/example'
+            .post('/member/login',loginFormData)
+            .then( r=> { console.log(r.data);
+                if( r.data ){
+                    alert('로그인 성공')
+                    window.location.href = '/'
+                }
+                else{ alert('로그인 실패')}
+
+
             })
         // CORS policy 오류 발생 해결방안
             // - 스프링 controller 클래스 @
     }
 
     return(<>
-        <form action={"/member/login"} method={"post"} className={'formWrap'}>
+        <form className={"loginForm"}>
             <div className={'idBox'}>
-                아이디  <input type={'text'} placeholder={'email address'} name={"memail"} className={'memail'}/>
+                아이디  <input type={'text'} placeholder={'email address'} name={"memail"} className={'memail'} id={"memail"}/>
             </div>
             <div className={'pwBox'}>
-                비밀번호  <input type={"password"} placeholder={'password'} name={"mpassword"} className={'mpassword'}/>
+                비밀번호  <input type={"password"} placeholder={'password'} name={"mpassword"} className={'mpassword'} id={'mpassword'}/>
             </div>
             <div className={'findBox'}>
                 <Link to={''}>아이디찾기 |</Link><Link to={''}> 비밀번호 찾기 </Link>
-                <button type={'submit'} className={'loginBtn'}>로그인</button>
+                <button type={'button'} onClick={onLogin} className={'loginBtn'}>로그인</button>
             </div>
         </form>
     </>)
