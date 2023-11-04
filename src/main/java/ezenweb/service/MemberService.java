@@ -65,8 +65,10 @@ public class MemberService implements UserDetailsService, // 일반 회원 서�
         if( o.equals("anonymousUser")){ return null; } // 로그인 안함
         // 2. 인증결과에 저장된 UserDetails로 타입 반환
         UserDetails userDetails = (UserDetails)o;
+        // 로그인 상태에 필요한 데이터 구성
+        MemberEntity memberEntity = memberEntityRepositoryEntity.findByMemail(userDetails.getUsername());
         // 3. UserDetails의 정보를 memberDto에 담아서 반환
-        return MemberDto.builder().memail(userDetails.getUsername()).build();
+        return MemberDto.builder().memail(userDetails.getUsername()).mno(memberEntity.getMno()).build();
     }
     @Override
     public UserDetails loadUserByUsername(String memail) throws UsernameNotFoundException {
