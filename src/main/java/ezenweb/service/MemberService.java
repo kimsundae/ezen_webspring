@@ -11,6 +11,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,9 +29,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MemberService implements UserDetailsService {
-
-    // ------------------------------------------ //
+public class MemberService implements UserDetailsService, // 일반 회원 서비스 : loadUserByUsername 메소드 구현
+        OAuth2UserService<OAuth2UserRequest, OAuth2User> // Oauth2 회원 서비스 : loadUser 메소드 구현[ 로그인된 회원정보를 받는 메서드 ]
+{
+    // ======================== 2. Oauth2 회원 ============================== //
+    @Override
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException{
+        // 1. 로그인을 성공한 oauth2 계정의 정보 호출
+        OAuth2User oAuth2User = new DefaultOAuth2UserService().loadUser( userRequest );  //
+        System.out.println("oAuth2User = " + oAuth2User);
+        return null;
+    }
+    
+    
+    // --------------------- 1.일반회원 --------------------- //
         // 1. UserDetailsService 구현체
         // 2. 시큐리티 인증 처리해주는 메소드 구현 [ loaduserByUsername ]
         // 3. loadUserByUsername 메소드는 무조건 UserDaetails객체를 반환해야함

@@ -3,6 +3,8 @@
         implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // oauth2 라이브러리
 2. oauth2와 카카오 연동
     - application.properties에서 작업
+3. SpringSecurityConfig에서 oauth2 로그인으로 사용할 페이지 설정
+4. view(리액트)에서 href="/oauth2/authorization/kakao"로 요청
 
 ========== 각 소셜 회사별 설정 ===============
 -카카오 로그인 개발자 설정

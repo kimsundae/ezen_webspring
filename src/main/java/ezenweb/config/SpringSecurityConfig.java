@@ -49,10 +49,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable(); // --- 모든 HTTP POST/PUT 에서 csrf 사용안함
         // 특정 HTTP에서만 CSRF 사용안함 [ POST, PUT ]
         //http.csrf().ignoringAntMatchers("/member/post"); // -- controller 매핑 주소
+        ///http.csrf().ignoringAntMatchers("/member/login"); // -- 매핑주소
 
+        // 4. Oauth2 커스텀
+        http.oauth2Login()
+                .loginPage("/login")   // oauth2 로그인할 view 페이지
+                .userInfoEndpoint().userService(memberService); // 로그인을 성공한 oauth2 유저 정보를 받을 서비스 선택
     }
 
-    // configure(WebSecurity web) : 웹 시큐리티 보안 담당하는 메서드
+    // p.689 configure(WebSecurity web) : 웹 시큐리티 보안 담당하는 메서드
     @Override
     public void configure(AuthenticationManagerBuilder auth ) throws Exception {
         //super.configure(web);
