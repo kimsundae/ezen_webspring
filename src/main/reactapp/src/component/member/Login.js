@@ -41,7 +41,9 @@ export default function Login( props ){
                 <Link to={''}>아이디찾기 |</Link><Link to={''}> 비밀번호 찾기 </Link>
                 <button type={'button'} onClick={onLogin} className={'loginBtn'}>로그인</button>
 
-                <a href={"/oauth2/authorization/kakao"}>카카오 1초 로그인</a>
+                <a className={"oauthBtn"} href={"/oauth2/authorization/kakao"}>카카오 1초 로그인</a>
+                <a className={"oauthBtn"} href={"/oauth2/authorization/naver"}>네이버 1초 로그인</a>
+                <a className={"oauthBtn"} href={"/oauth2/authorization/google"}>구글 1초 로그인</a>
             </div>
         </form>
     </>)
