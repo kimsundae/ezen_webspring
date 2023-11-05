@@ -1,6 +1,7 @@
 package ezenweb.service;
 
 import ezenweb.model.dto.BoardDto;
+import ezenweb.model.dto.MemberDto;
 import ezenweb.model.entity.BoardEntity;
 import ezenweb.model.entity.MemberEntity;
 import ezenweb.model.repository.BoardEntityRepository;
@@ -30,15 +31,17 @@ public class BoardService {
     public boolean write( BoardDto boardDto ){
 
         // 1. 로그인된 회원의 pk번호 호출
-        //memberService.getMember().getMno();
+        MemberDto loginDto = memberService.getMember();
+        if( loginDto == null) return false;
         // 2. 회원pk번호를 가지고 pk엔티티 찾기
         // =============== 단방향 ============= //
         Optional<MemberEntity> memberEntityOptional =
-                memberEntityRepository.findById( memberService.getMember().getMno() );
+                memberEntityRepository.findById( loginDto.getMno() );
         // 3. 유효성 검사 [ 로그인이 안된 상태 글쓰기 실패 ]
         if( !memberEntityOptional.isPresent()){ return false;}
             // 4. 단방향 저장
                 // 1. 게시물 생성
+                // 게시물 엔티티 등록
         BoardEntity boardEntity = boardEntityRepository.save( boardDto.saveToEntity() );
             // 2. 게시물에 작성자 엔티티 넣어주기
         boardEntity.setMemberEntity(memberEntityOptional.get());

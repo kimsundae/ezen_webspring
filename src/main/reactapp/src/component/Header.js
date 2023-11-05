@@ -47,7 +47,7 @@ export default function Header( props ){
                 <li> <Link to='/example/task/task1'>도서 목록 </Link></li>
                 <li> <Link to='/example/task/task2'>TODO </Link></li>
                 <li> <Link to='/'>비회원게시판 </Link></li>
-                <li> <Link to='/'>회원게시판 </Link></li>
+                <li> <Link to='/board/list'>회원게시판 </Link></li>
                 {/* 삼항연산자 조건 ? 참 : 거짓 */}
                 {login == null
                     ? (<>
