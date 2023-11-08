@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -38,6 +39,32 @@ public class MemberService implements UserDetailsService, // 일반 회원 서�
         // 1. 로그인을 성공한 oauth2 계정의 정보 호출
         OAuth2User oAuth2User = new DefaultOAuth2UserService().loadUser( userRequest );  //
         System.out.println("oAuth2User = " + oAuth2User);
+
+        // 2. 인증결과( 카카오, 네이버, 구글 )
+        // 2-1 인증한 소셜 서비스 아이디( 각 회사명) 찾기
+        String registrationId = userRequest.getClientRegistration().getRegistrationId();
+        System.out.println("registrationId = " + registrationId);
+        String memail = null; String mname = null; String mrole = null;
+        // 2-2 카카오이면
+        if("kakao".equals(registrationId)){
+            //System.out.println( oAuth2User.getAttribute("email").toString() );
+            System.out.println( oAuth2User.getAttributes());
+            System.out.println( oAuth2User.getAuthorities() );
+
+            memail = oAuth2User.getAttributes().get("email").toString();
+            Map<String,Object> kakao_account = (Map<String, Object>) oAuth2User.getAttributes().get("kakao_account");
+            Map<String,Object> profile = (Map<String,Object>)kakao_account.get("profile");
+            mname = profile.get("nickname").toString();
+
+            Object[] Authorities = oAuth2User.getAuthorities().toArray();
+
+            System.out.println(memail);
+            System.out.println(mname);
+        }
+        // 2-2 네이버이면
+        //if("naver".equals(registrationId))
+        // 3-3 구글이면
+        //if("gogle".equals(registrationId))
         return null;
     }
     
@@ -233,7 +260,52 @@ public class MemberService implements UserDetailsService, // 일반 회원 서�
         }
         return null;
     }
-
-
-
 }
+// ========================================================= ============ ============================================== //
+/*
+@@ -227,6 +290,57 @@ public boolean getFindMemail(String memail ){
+        .authorities("ROLE_USER") // 인가(허가나 권한) 정보
+        .build();
+        // oAuth2User :
+        // Name: [3142747395],
+        // Granted Authorities: [ [ROLE_USER, SCOPE_account_email, SCOPE_profile_nickname] ],
+        // User Attributes:
+        // [
+        // {id=3142747395,
+        // connected_at=2023-11-01T02:34:00Z,
+        // properties={nickname=김현수},
+        // kakao_account={
+        //profile_nickname_needs_agreement=false,
+        // profile={nickname=김현수},
+        // has_email=true,
+        // email_needs_agreement=false,
+        // is_email_valid=true,
+        // is_email_verified=true,
+        // email=itdanja@kakao.com}
+        // }
+        // ]
+        // oAuth2User :
+        // Name: [{id=Hq9vZhky2c775-RmPtIeB95Rz2dnBbYgKTJPAHSsvDQ, nickname=아이티단자, email=kgs2072@naver.com}],
+        // Granted Authorities: [[ROLE_USER]],
+        // User Attributes:
+        // [
+        // {resultcode=00,
+        // message=success,
+        // response={id=Hq9vZhky2c775-RmPtIeB95Rz2dnBbYgKTJPAHSsvDQ, nickname=아이티단자, email=kgs2072@naver.com}
+        // }]
+        // oAuth2User =
+        // Name: [114044778334166488538],
+        // Granted Authorities: [[ROLE_USER, SCOPE_https://www.googleapis.com/auth/userinfo.email, SCOPE_https://www.googleapis.com/auth/userinfo.profile, SCOPE_openid]],
+        // User Attributes:
+        // [
+        // {sub=114044778334166488538,
+        // name=아이티단자,
+        // given_name=단자,
+        // family_name=아이티,
+        // picture=https://lh3.googleusercontent.com/a/ACg8ocJnQK5h01N1X-1FmKKp9ltL_8Wf-cY5DOabXivgjPXdbYE=s96-c,
+        // email=kgs2072@naver.com,
+        // email_verified=true,
+        // locale=ko}
+        // ]
+
+*/
