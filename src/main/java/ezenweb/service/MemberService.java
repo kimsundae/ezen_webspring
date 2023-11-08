@@ -4,6 +4,8 @@ import ezenweb.model.dto.MemberDto;
 import ezenweb.model.entity.MemberEntity;
 import ezenweb.model.repository.MemberEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,10 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class MemberService implements UserDetailsService, // 일반 회원 서비스 : loadUserByUsername 메소드 구현
@@ -44,28 +43,62 @@ public class MemberService implements UserDetailsService, // 일반 회원 서�
         // 2-1 인증한 소셜 서비스 아이디( 각 회사명) 찾기
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         System.out.println("registrationId = " + registrationId);
-        String memail = null; String mname = null; String mrole = null;
+        String memail = null; String mname = null;
         // 2-2 카카오이면
         if("kakao".equals(registrationId)){
             //System.out.println( oAuth2User.getAttribute("email").toString() );
             System.out.println( oAuth2User.getAttributes());
             System.out.println( oAuth2User.getAuthorities() );
 
-            memail = oAuth2User.getAttributes().get("email").toString();
+
             Map<String,Object> kakao_account = (Map<String, Object>) oAuth2User.getAttributes().get("kakao_account");
+            memail = kakao_account.get("email").toString();
             Map<String,Object> profile = (Map<String,Object>)kakao_account.get("profile");
             mname = profile.get("nickname").toString();
-
-            Object[] Authorities = oAuth2User.getAuthorities().toArray();
-
-            System.out.println(memail);
-            System.out.println(mname);
         }
         // 2-2 네이버이면
-        //if("naver".equals(registrationId))
+        if("naver".equals(registrationId)){
+            Map<String,Object> response = (Map<String,Object>) oAuth2User.getAttributes().get("response");
+            memail = response.get("email").toString();
+            mname = response.get("nickname").toString();
+        }
         // 3-3 구글이면
-        //if("gogle".equals(registrationId))
-        return null;
+        if("google".equals(registrationId)){
+            memail = oAuth2User.getAttributes().get("email").toString();
+            mname = oAuth2User.getAttributes().get("name").toString();
+        }
+
+        // 3 : 일반회원(UserDetails)+OAUTH2(oAuth2) 통합회원 = DTO 같이 쓰기
+            // 2-1 권한 목록에 추가
+        List<GrantedAuthority> 권한목록 = new ArrayList<>();
+        권한목록.add( new SimpleGrantedAuthority("ROLE_"+registrationId));
+
+        MemberDto memberDto = MemberDto.builder()
+                .memail(memail)
+                .mname(mname)
+                .권한목록(권한목록)
+                .소셜회원정보( oAuth2User.getAttributes() )
+                .build();
+        System.out.println("mname =" +mname);
+        // 2-3 DB처리
+            // 만약에 처음 접속한 OAUTH2 회원이면 권한을 추가하고 Db처리
+        if( !memberEntityRepositoryEntity.existsByMemail( memail )){ // 해당 이메일이 db에 없으면
+            memberDto.setMrole("ROLE_USER");
+            // 임의 패스워드[ oauth2 패스워드가 필요없다, db null 피하기 위해서]
+            memberDto.setMpassword( new BCryptPasswordEncoder().encode(mname));
+            // - 전화번호 난수
+            Random random = new Random();
+            int 앞 = random.nextInt(999 ); int 중간 = random.nextInt(9999 ); int 뒤 = random.nextInt(9999 );
+            // 임의 전화번호[ oauth2 전화번호가 없다-사업자등록 하면 가능 . db null 피하기 위해 / 번화번호를 임의의로 설정 ]
+            memberDto.setMphone( 앞+"-"+중간+"-"+뒤 ); // 추후에 수정페이지 로 이동시켜서 추가정보 입력하게 유도.
+            memberEntityRepositoryEntity.save(memberDto.toEntity());
+        }else{ // 만약에 처음 접속이 아니면 기존 권한을 db에서 가져와서 넣어주기.
+            memberDto.setMrole( memberEntityRepositoryEntity.findByMemail( memail ).getMrole() );
+        }
+        // 권한 추가
+        memberDto.get권한목록().add( new SimpleGrantedAuthority( memberDto.getMrole()) );
+            // 아니면 DB처리 X
+        return memberDto;
     }
     
     
@@ -107,13 +140,20 @@ public class MemberService implements UserDetailsService, // 일반 회원 서�
         MemberEntity memberEntity = memberEntityRepositoryEntity.findByMemail(memail);
         //없는 아이디이면 // throw : 예외처리 던지기 // new UsernameNotFoundException() : username 없을 때 사용하는 예외 클래스
         if( memberEntity == null ){ throw new UsernameNotFoundException("없는 아이디입니다.");}
-        // 2. 로딩[불러오기]된 사용자의 정보를 이용해서 패스워드를 검증
-            // 2-1 있는 아이디이면
-        UserDetails userDetails = User.builder()
-                .username(memberEntity.getMemail())
-                .password(memberEntity.getMpassword())
-                .authorities("ROLE_USER").build();
-        return userDetails;
+        // 2. 로딩[불러오기] 된 사용자의 정보를 이용해서 패스워드를 검증
+
+        // 2-1 권한 목록 추가
+        List<GrantedAuthority> 권한목록 = new ArrayList<>();
+        권한목록.add( new SimpleGrantedAuthority( memberEntity.getMrole() ));
+
+        // 2-2 DTO 만들기
+        MemberDto memberDto = MemberDto.builder()
+                .memail(memberEntity.getMemail())
+                .mpassword(memberEntity.getMpassword())
+                .mname( memberEntity.getMname() )
+                .권한목록( 권한목록 )
+                .build();
+        return memberDto;
     }
 
 
