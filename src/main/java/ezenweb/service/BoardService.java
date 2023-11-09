@@ -76,7 +76,7 @@ public class BoardService {
             // 3. 엔티티 꺼내기
             BoardEntity result = boardEntity.get();
             // 4. 수정
-            result.setBcontent(boardDto.getBtitle());
+            result.setBcontent(boardDto.getBcontent());
             result.setBtitle(boardDto.getBtitle());
             result.setBfile(boardDto.getBfile());
             return true;
@@ -91,5 +91,23 @@ public class BoardService {
 
         boardEntityRepository.deleteById( bno );
         return true;
+    }
+    // 5 [2-2] 개별게시물 출력
+    @Transactional
+    public BoardDto doGet( int bno ){
+
+        // 1. pk 번호에 해당하는 엔티티 찾기
+        Optional<BoardEntity> boardEntityOptional = boardEntityRepository.findById( bno );
+
+        // 2. 검색된 엔티티가 존재하면
+        if( boardEntityOptional.isPresent() ){
+            // 3. 엔티티 꺼내기
+            BoardEntity boardEntity = boardEntityOptional.get();
+            // 4. 엔티티 -> dto 변환
+            BoardDto boardDto = boardEntity.toDto();
+            // 5. dto 반환
+            return boardDto;
+        }
+        return null;
     }
 }

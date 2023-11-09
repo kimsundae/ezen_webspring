@@ -34,7 +34,7 @@ public class MemberDto implements UserDetails, OAuth2User {
 
     @Override // 계정 권한 목록 [ 여러개 가능 Collection ]
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return 권한목록;
     }
 
     @Override // 계정 비밀번호

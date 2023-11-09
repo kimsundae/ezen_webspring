@@ -21,6 +21,8 @@ import styles from './css/Header.css'
 import Info from "./member/Info";
 import BoardList from './board/BoardList'
 import BoardWrite from './board/BoardWrite'
+import BoardView from './board/BoardView'
+import BoardUpdate from "./board/BoardUpdate";
 export default function Index(props){
     return(<>
         <div className={'webContainer'}>
@@ -48,6 +50,8 @@ export default function Index(props){
                         {/*Board*/}
                         <Route path={"/board/list"} element={<BoardList/>}></Route>
                         <Route path={"/board/write"} element={<BoardWrite/>}></Route>
+                        <Route path={"/board/view"} element={<BoardView/>}></Route>
+                        <Route path={"/board/update"} element={<BoardUpdate/>}></Route>
                     </Routes>
                 <Footer/>
             </BrowserRouter>
