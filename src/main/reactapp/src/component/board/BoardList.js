@@ -21,7 +21,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 // ------------- //
-
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 // ------ sample ------- //
 
 // --------------------//
@@ -32,16 +33,26 @@ export default function BoardList(props){
 
     // 0. 컴포넌트 상태변수 관리
     let [rows,setRows] = useState([])
+    // 1. -
+    const [ page, setPage ] = useState( 1 );
+
+    // 1. axios를 이용한 스프링의 컨트롤과 통신
     useEffect(() => { // 컴포넌트가 생성될 때 한번
-        axios.get('/board').then( r=>{console.log(r.data)
+        axios.get('/board', {params : {page:page}}).then( r=>{
             setRows(r.data); // 응답받은 모든 게시물을 상태변수에 저장
             // setState : 해당 컴포넌트가 업데이트 (새로고침/재랜더링/return재실행)
         });
-    }, []);
+    }, [page]);
+
+    // 2.
+    const onPageSelect = (e,value) => { console.log(value); setPage(value);  }
 
     return(<>
         <h3> 게시물 목록</h3>
         <a href={"/board/write"}>글쓰기</a>
+
+
+
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
@@ -70,6 +81,9 @@ export default function BoardList(props){
                 </TableBody>
             </Table>
         </TableContainer>
+        <div style={{display : 'flex', justifyContent : 'center'}}>
+            <Pagination count={10} onChange={ onPageSelect } />
+        </div>
     </>)
 }
 {/* <div>

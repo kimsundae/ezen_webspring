@@ -52,8 +52,8 @@ public class BoardService {
     }
     // 2.
     @Transactional
-    public List<BoardDto> getAll(){
-        System.out.println("BoardService.getAll");
+    public List<BoardDto> getAll( int page ){
+        System.out.println("page = " + page);
         // 1. 모든 게시물 호출
         List<BoardEntity> list = boardEntityRepository.findAll();
         // 2. List<BoardEntity> --> List<BoardDto>

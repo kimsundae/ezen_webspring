@@ -21,9 +21,9 @@ public class BoardController {
     }
     // 2. 전체 게시물 출력
     @GetMapping("")
-    public List<BoardDto> getAll(){
+    public List<BoardDto> getAll( @RequestParam int page ){
         System.out.println("BoardController.getAll");
-        return boardService.getAll();
+        return boardService.getAll(page);
     }
 
     // 2-2 개별 게시물 출력
