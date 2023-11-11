@@ -7,6 +7,9 @@ import ezenweb.model.entity.MemberEntity;
 import ezenweb.model.repository.BoardEntityRepository;
 import ezenweb.model.repository.MemberEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,15 +56,31 @@ public class BoardService {
     // 2.
     @Transactional
     public List<BoardDto> getAll( int page ){
-        System.out.println("page = " + page);
+
+        // * JPA 페이징 처리 라이브러리 지원
+            // 1. Pageable : 페이지 인터페이스( 구현체: 구현[ 추상메소드(인터페이스 가지는 함수)를 구현]해주는 객체)
+                // 사용이유 : Repository이너페이스가 페이징처리할 때 사용하는 인터페이스
+            // 2. PageRequest : 페이지 구현체
+                // of( 현재페이지, 페이지별 게시물 수)
+                // 현재페이지 : 0부터 시작
+                // 페이지별게시물수 : 만약에 2일때는 페이지마다 게시물 2개씩 출력
+            // 3. Page: list와 마찬가지로 페이징결과의 여러개 객체를 저장하는 타입[인터페이스]
+                // list와 다르게 추가적으로 함수 지원
+        Pageable pageable = PageRequest.of( page-1, 2 );
         // 1. 모든 게시물 호출
-        List<BoardEntity> list = boardEntityRepository.findAll();
+        Page<BoardEntity> list = boardEntityRepository.findAll(pageable);
         // 2. List<BoardEntity> --> List<BoardDto>
         List<BoardDto> dtoList = new ArrayList<>();
-
         list.forEach( entity -> {
             dtoList.add( entity.toDto() );
         });
+
+            // 3. 총 페이지수
+        int totalPages = list.getTotalPages();
+            // 4. 총 게시물 수
+        Long totalCount = list.getTotalElements();
+
+
         return dtoList;
     }
 
