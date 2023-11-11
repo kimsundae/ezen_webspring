@@ -31,21 +31,26 @@ import {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 export default function BoardList(props){
 
+
     // 0. 컴포넌트 상태변수 관리
-    let [rows,setRows] = useState([])
-    // 1. -
+    const [ pageDto, setPageDto ] = useState( {
+        boardDtos : [],
+        totalPages : 0,
+        totalCount : 0
+    } );
+
     const [ page, setPage ] = useState( 1 );
 
     // 1. axios를 이용한 스프링의 컨트롤과 통신
     useEffect(() => { // 컴포넌트가 생성될 때 한번
         axios.get('/board', {params : {page:page}}).then( r=>{
-            setRows(r.data); // 응답받은 모든 게시물을 상태변수에 저장
+            setPageDto(r.data); // 응답받은 모든 게시물을 상태변수에 저장
             // setState : 해당 컴포넌트가 업데이트 (새로고침/재랜더링/return재실행)
         });
     }, [page]);
 
     // 2.
-    const onPageSelect = (e,value) => { console.log(value); setPage(value);  }
+    const onPageSelect = (e,value) => { console.log(value); setPageDto(value);  }
 
     return(<>
         <h3> 게시물 목록</h3>
@@ -66,7 +71,7 @@ export default function BoardList(props){
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
+                    {pageDto.boardDtos.map((row) => (
                         <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                             <TableCell align="right">{row.bno}</TableCell>
                             <TableCell align={"right"}>
@@ -82,7 +87,7 @@ export default function BoardList(props){
             </Table>
         </TableContainer>
         <div style={{display : 'flex', justifyContent : 'center'}}>
-            <Pagination count={10} onChange={ onPageSelect } />
+            <Pagination count={pageDto.totalPages } onChange={ onPageSelect } />
         </div>
     </>)
 }

@@ -2,6 +2,7 @@ package ezenweb.service;
 
 import ezenweb.model.dto.BoardDto;
 import ezenweb.model.dto.MemberDto;
+import ezenweb.model.dto.PageDto;
 import ezenweb.model.entity.BoardEntity;
 import ezenweb.model.entity.MemberEntity;
 import ezenweb.model.repository.BoardEntityRepository;
@@ -55,7 +56,7 @@ public class BoardService {
     }
     // 2.
     @Transactional
-    public List<BoardDto> getAll( int page ){
+    public PageDto getAll( int page ){
 
         // * JPA 페이징 처리 라이브러리 지원
             // 1. Pageable : 페이지 인터페이스( 구현체: 구현[ 추상메소드(인터페이스 가지는 함수)를 구현]해주는 객체)
@@ -80,8 +81,14 @@ public class BoardService {
             // 4. 총 게시물 수
         Long totalCount = list.getTotalElements();
 
+            // 5. pageDto 구성해서 axios에게 전달 DIS
+        PageDto pageDto = PageDto.builder()
+                .boardDtos(dtoList)
+                .totalCount(totalCount)
+                .totalPages(totalPages)
+                .build();
 
-        return dtoList;
+        return pageDto;
     }
 
     // 3.
