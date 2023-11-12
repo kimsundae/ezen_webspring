@@ -56,7 +56,7 @@ public class BoardService {
     }
     // 2.
     @Transactional
-    public PageDto getAll( int page ){
+    public PageDto getAll( int page, String key, String keyword ){
 
         // * JPA 페이징 처리 라이브러리 지원
             // 1. Pageable : 페이지 인터페이스( 구현체: 구현[ 추상메소드(인터페이스 가지는 함수)를 구현]해주는 객체)
@@ -67,19 +67,22 @@ public class BoardService {
                 // 페이지별게시물수 : 만약에 2일때는 페이지마다 게시물 2개씩 출력
             // 3. Page: list와 마찬가지로 페이징결과의 여러개 객체를 저장하는 타입[인터페이스]
                 // list와 다르게 추가적으로 함수 지원
+        // 페이징 처리
         Pageable pageable = PageRequest.of( page-1, 2 );
         // 1. 모든 게시물 호출
-        Page<BoardEntity> list = boardEntityRepository.findAll(pageable);
+        //Page<BoardEntity> list = boardEntityRepository.findAll(pageable);
+        Page<BoardEntity> boardEntities = boardEntityRepository.findBySearch(key, keyword, pageable);
+
         // 2. List<BoardEntity> --> List<BoardDto>
         List<BoardDto> dtoList = new ArrayList<>();
-        list.forEach( entity -> {
+        boardEntities.forEach( entity -> {
             dtoList.add( entity.toDto() );
         });
 
             // 3. 총 페이지수
-        int totalPages = list.getTotalPages();
+        int totalPages = boardEntities.getTotalPages();
             // 4. 총 게시물 수
-        Long totalCount = list.getTotalElements();
+        Long totalCount = boardEntities.getTotalElements();
 
             // 5. pageDto 구성해서 axios에게 전달 DIS
         PageDto pageDto = PageDto.builder()

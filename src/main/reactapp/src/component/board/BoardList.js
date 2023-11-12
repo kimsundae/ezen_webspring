@@ -39,24 +39,33 @@ export default function BoardList(props){
         totalCount : 0
     } );
 
-    const [ page, setPage ] = useState( 1 );
+    const [ pageInfo, setPageInfo ] = useState({
+        page: 1, key: '', keyword: ''
+    });
 
     // 1. axios를 이용한 스프링의 컨트롤과 통신
     useEffect(() => { // 컴포넌트가 생성될 때 한번
-        axios.get('/board', {params : {page:page}}).then( r=>{
+        axios.get('/board', {params : pageInfo}).then( r=>{
             setPageDto(r.data); // 응답받은 모든 게시물을 상태변수에 저장
             // setState : 해당 컴포넌트가 업데이트 (새로고침/재랜더링/return재실행)
         });
-    }, [page]);
+    }, [pageInfo]);
 
-    // 2.
-    const onPageSelect = (e,value) => { console.log(value); setPageDto(value);  }
+    // 2. 페이지 번호를 클릭했을 때
+    const onPageSelect = (e,value) => { console.log(value);
+        pageInfo.page = value;
+        setPageInfo({...pageInfo});
+    }
+
+    // 3. 검색 버튼을 눌렀을 때
+    const onSearch = (e) => {}
+
 
     return(<>
         <h3> 게시물 목록</h3>
         <a href={"/board/write"}>글쓰기</a>
 
-
+        <p>page : {pageInfo.page} totalCount : {pageDto.totalCount}</p>
 
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -86,8 +95,20 @@ export default function BoardList(props){
                 </TableBody>
             </Table>
         </TableContainer>
-        <div style={{display : 'flex', justifyContent : 'center'}}>
+        <div style={{display : 'flex', flexDirection : 'column', alignItems: 'center',margin: '10px'}}>
             <Pagination count={pageDto.totalPages } onChange={ onPageSelect } />
+
+            {/* 검색 */}
+            <div style={{margin: '20px'}}>
+                <select value={pageInfo.key} onChange={(e)=>{setPageInfo({...pageInfo,key:e.target.value})}}>
+                    <option value={"btitle"}>제목</option>
+                    <option value={"bcontent"}>내용</option>
+                </select>
+                <input type={"text"} value={pageInfo.keyword} onChange={(e)=>setPageInfo({...pageInfo,keyword:e.target.value})}/>
+                <button type={"button"} onClick={ onSearch }>검색</button>
+            </div>
+
+
         </div>
     </>)
 }
