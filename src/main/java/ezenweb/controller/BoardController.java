@@ -22,9 +22,9 @@ public class BoardController {
     }
     // 2. 전체 게시물 출력
     @GetMapping("")
-    public PageDto getAll(@RequestParam int page, @RequestParam String key, @RequestParam String keyword ){
+    public PageDto getAll(@RequestParam int page, @RequestParam String key, @RequestParam String keyword ,@RequestParam int view ){
         System.out.println("BoardController.getAll");
-        return boardService.getAll(page,key,keyword);
+        return boardService.getAll(page,key,keyword, view);
     }
 
     // 2-2 개별 게시물 출력

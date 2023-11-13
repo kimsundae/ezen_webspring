@@ -30,6 +30,9 @@ public interface BoardEntityRepository
         // nativeQuery = false면 실제 mysql 표현식이 아닌 jpql[java+mysql] 표현식 사용
         // SQL 안에서 매개 변수를 표현할 때 :매개변수명 // DAO에서는 ?
     //@Query( value = " select * from board where bno = :bno ", nativeQuery = true) // == findById
-    @Query( value = " select * from board where btitle like %:keyword% " , nativeQuery = true )
+    @Query( value = " select * from board where " +
+            " if( :keyword = '', true, " +
+            " if( :key = 'btitle', btitle like %:keyword%, " +
+            " if( :key = 'bcontent', bcontent like %:keyword%, true ))) " , nativeQuery = true )
     Page<BoardEntity> findBySearch( String key, String keyword, Pageable pageable);
 }

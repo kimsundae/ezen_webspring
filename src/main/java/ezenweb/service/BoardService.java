@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,7 +57,7 @@ public class BoardService {
     }
     // 2.
     @Transactional
-    public PageDto getAll( int page, String key, String keyword ){
+    public PageDto getAll( int page, String key, String keyword, int view ){
 
         // * JPA 페이징 처리 라이브러리 지원
             // 1. Pageable : 페이지 인터페이스( 구현체: 구현[ 추상메소드(인터페이스 가지는 함수)를 구현]해주는 객체)
@@ -68,7 +69,7 @@ public class BoardService {
             // 3. Page: list와 마찬가지로 페이징결과의 여러개 객체를 저장하는 타입[인터페이스]
                 // list와 다르게 추가적으로 함수 지원
         // 페이징 처리
-        Pageable pageable = PageRequest.of( page-1, 2 );
+        Pageable pageable = PageRequest.of( page-1, view, Sort.by(Sort.Direction.DESC,"cdate") );
         // 1. 모든 게시물 호출
         //Page<BoardEntity> list = boardEntityRepository.findAll(pageable);
         Page<BoardEntity> boardEntities = boardEntityRepository.findBySearch(key, keyword, pageable);
@@ -132,6 +133,8 @@ public class BoardService {
         if( boardEntityOptional.isPresent() ){
             // 3. 엔티티 꺼내기
             BoardEntity boardEntity = boardEntityOptional.get();
+                // + 조회수 증가
+                boardEntity.setBview(boardEntity.getBview()+1);
             // 4. 엔티티 -> dto 변환
             BoardDto boardDto = boardEntity.toDto();
             // 5. dto 반환
