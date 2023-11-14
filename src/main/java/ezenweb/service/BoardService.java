@@ -19,12 +19,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.transaction.Transactional;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class BoardService {
+    @Autowired
+    private FileService fileService;
     @Autowired
     private BoardEntityRepository boardEntityRepository;
     @Autowired
@@ -53,7 +56,17 @@ public class BoardService {
         //============= 양방향 ================ //
             // 5. 양방향 저장 [회원엔티티에 게시물 엔티티 넣어주기]
         memberEntityOptional.get().getBoardEntityList().add(boardEntity);
-        if( boardEntity.getBno() >= 1) {return true;} return false;
+        if( boardEntity.getBno() >= 1) {
+            // 게시물 쓰기 성공 시 파일 처리
+            String filename
+                    = fileService.fileUpload(boardDto.getFile());
+            System.out.println("file = "+filename);
+            // 파일 처리 결과를 db에 저장
+            if( filename != null) {boardEntity.setBfile(filename);
+                }
+            return true;
+        }
+        return false;
     }
     // 2.
     @Transactional

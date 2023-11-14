@@ -17,7 +17,7 @@ public class BoardController {
     // 1. 게시물 등록
     @PostMapping("")
     public boolean write( BoardDto boardDto ){
-        System.out.println("BoardController.write");
+        System.out.println("boardDto = " + boardDto);
         return boardService.write( boardDto );
     }
     // 2. 전체 게시물 출력
