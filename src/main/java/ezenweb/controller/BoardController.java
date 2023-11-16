@@ -3,6 +3,7 @@ package ezenweb.controller;
 import ezenweb.model.dto.BoardDto;
 import ezenweb.model.dto.PageDto;
 import ezenweb.service.BoardService;
+import ezenweb.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,8 @@ import java.util.List;
 public class BoardController {
     @Autowired
     private BoardService boardService;
-
+    @Autowired
+    private FileService fileService;
     // 1. 게시물 등록
     @PostMapping("")
     public boolean write( BoardDto boardDto ){
@@ -43,5 +45,11 @@ public class BoardController {
     public boolean delete(@RequestParam int bno ){
         System.out.println("BoardController.delete");
         return boardService.delete(bno);
+    }
+    // 5. 첨부파일다운로드요청
+    @GetMapping("/filedownload")
+    public void filedownload(
+            @RequestParam String uuidFile ) {
+        fileService.fileDownload(uuidFile);
     }
 }
