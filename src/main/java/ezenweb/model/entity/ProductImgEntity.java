@@ -1,18 +1,21 @@
 package ezenweb.model.entity;
 
-import lombok.Builder;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@Builder
 @Entity@Table( name = "productimg" )
-public class ProductImgEntity { /* 제품이미지파일 */
+public class ProductImgEntity extends BaseTime{ /* 제품이미지파일 */
     @Id private String uuidFileName; // 이미지 식별 이름 [ PK ]
     @Column private String realFileName; // 이미지 실제 이름
 
     @ManyToOne
     @JoinColumn(name="pno")
-    private ProductEntity productCategoryEntities;
+    private ProductEntity productEntity;
 
 }

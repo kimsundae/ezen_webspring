@@ -1,15 +1,19 @@
 package ezenweb.model.entity;
 
-import lombok.Builder;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@Builder
 @Entity@Table(name = "product")
-public class ProductEntity { /* 제품테이블 */
+public class ProductEntity extends BaseTime{ /* 제품테이블 */
     @Id private String pno;         // 제품번호 [ PK ]
     @Column private String pname;       // 제품명
     @Column( columnDefinition = "TEXT") private String pcomment;    // 제품 설명
@@ -19,7 +23,7 @@ public class ProductEntity { /* 제품테이블 */
 
     @ManyToOne
     @JoinColumn( name="pcno" )
-    private ProductCategoryEntity productEntity;
+    private ProductCategoryEntity productCategoryEntity;
 
     @OneToMany(fetch = FetchType.LAZY , mappedBy = "productEntity" , cascade = CascadeType.ALL )
     @ToString.Exclude
