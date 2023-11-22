@@ -37,8 +37,6 @@ export default function Header( props ){
     }, []);
 
 
-
-
     return(<>
         <header className={"headerWrap"}>
             <h2> <Link to='/'> 이젠리액트 </Link> </h2>
