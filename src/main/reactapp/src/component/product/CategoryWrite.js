@@ -32,7 +32,6 @@ export default function CategoryWrite(props){
                 .then(r=>{console.log(r.data)})
         }
     }
-
     return(<>
         <div style={{width:'300px', margin: '0 auto'}}>
             <h3>카테고리 동륵</h3>
