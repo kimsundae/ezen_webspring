@@ -9,8 +9,20 @@ import CategoryWrite from "./CategoryWrite";
 import ProductInfo from "./ProductInfo";
 import ProductList from "./ProductList";
 import ProductWrite from "./ProductWrite";
+import axios from "axios";
+import {useEffect, useState} from "react";
 
 export default function ProductAdmin(props){
+
+    // 0. 출력할 카테고리 목록
+    const [categoryList, setCategoryList] = useState([]);
+    // 2. 카테고리 출력
+    const printCategory = (e) => {
+        axios.get('/product/category').then(r=>{console.log(r.data); setCategoryList(r.data)} )
+    }
+    useEffect(() => {
+        printCategory()
+    }, []);
     const [value, setValue] = React.useState('1');
 
     const handleChange = (event, newValue) => {
@@ -30,10 +42,10 @@ export default function ProductAdmin(props){
                         <Tab label="제품 상태" value="4" />
                     </TabList>
                 </Box>
-                <TabPanel value="1"><CategoryWrite/></TabPanel>
-                <TabPanel value="2"><ProductWrite/></TabPanel>
-                <TabPanel value="3"><ProductList/></TabPanel>
-                <TabPanel value="4"><ProductInfo/></TabPanel>
+                <TabPanel value="1"><CategoryWrite categoryList={categoryList} printCategory={printCategory} /></TabPanel>
+                <TabPanel value="2"><ProductWrite categoryList={categoryList} printCategory={printCategory}/></TabPanel>
+                <TabPanel value="3"><ProductList categoryList={categoryList} printCategory={printCategory}/></TabPanel>
+                <TabPanel value="4"><ProductInfo categoryList={categoryList} printCategory={printCategory}/></TabPanel>
             </TabContext>
         </Box>
     );

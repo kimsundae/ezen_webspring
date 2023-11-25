@@ -64,7 +64,7 @@ public class ProductService {
     }
     public ProductCategoryEntity toEntity(int pcno){
         Optional<ProductCategoryEntity> productCategoryEntityOptional =
-                productCategoryEntityRepository.findById(String.valueOf(pcno));
+                productCategoryEntityRepository.findById(pcno);
         return productCategoryEntityOptional.isPresent() ? productCategoryEntityOptional.get() : null;
     }
 
