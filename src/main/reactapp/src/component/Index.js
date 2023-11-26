@@ -25,6 +25,8 @@ import BoardView from './board/BoardView'
 import BoardUpdate from "./board/BoardUpdate";
 import ProductAdmin from "./product/ProductAdmin";
 import {useRef, createContext} from "react";
+// MUI 라이브러리 호출
+import {enqueueSnackbar, useSnackbar} from 'notistack';
 
 /* 리액트 Context 변수 */
 export const SocketContext = createContext();
@@ -55,6 +57,7 @@ export default function Index(props){
         clientSocket.current.onclose = (e)=>{ console.log(e); }
         // 4. 서버소켓으로부터 메시지를 받았을때. 이후 행동/메소드 정의
         clientSocket.current.onmessage = (e)=>{
+            enqueueSnackbar('This is a success message!', {variant : 'success'})
         }
     }
 

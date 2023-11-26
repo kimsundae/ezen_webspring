@@ -5,16 +5,21 @@ import {SocketContext} from "../Index";
 
 export default function ProductWrite(props){
     console.log(useContext(SocketContext))
+
+    // 1. 상위 컴포넌트에 있는 context 호출
+    const clientSocket = useContext( SocketContext ).current;
+
     // 1. 제품등록
     const onProductAdd = (e) => {
-
-
-
         let productForm = document.querySelectorAll('.productForm')[0];
         let productFormData = new FormData( productForm );
         axios.post( '/product' , productFormData )
             .then( r=> {console.log(r)
-                if(r.data){alert('제품등록 성공'); productForm.reset();}
+                if(r.data){
+                    clientSocket.send('새로운 제품이 등록 되었습니다.')
+                    productForm.reset();
+
+                }
                 else{alert('제품등록 실패');}
             })
 

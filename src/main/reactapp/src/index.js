@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {SnackbarProvider} from 'notistack';
 
 // 3. 내가 만든 컴포넌트( jsx파일 내 함수 ) 호출
 //import 컴포넌트명 from 'jsx파일경로';
@@ -34,7 +35,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //root.render(<React.StrictMode><CommentList /></React.StrictMode>);
 //root.render(<React.StrictMode><TodoList /></React.StrictMode>);
 //root.render(<React.StrictMode><라우터컴포넌트 /></React.StrictMode>);
-root.render(<><Index /></>);
+root.render(<SnackbarProvider maxSnack={5}><Index /></SnackbarProvider>);
 //root.render(<라우터매개변수/>)
 //root.render(<상태관리컴포넌트 />);
 //root.render(<생명주기컴포넌트/>)
