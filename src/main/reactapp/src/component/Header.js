@@ -1,17 +1,8 @@
 import {Link} from "react-router-dom";
 import axios from "axios";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 export default function Header( props ){
 
-    // 2.
-    //
-    useEffect(() => {
-        let 클라이언트소켓 = new WebSocket("ws://localhost:80/chat")
-        console.log(클라이언트소켓)
-
-        클라이언트소켓.onopen = (e) => {console.log(e)}
-        클라이언트소켓.onerror = (e) => {console.log(e)}
-    }, []);
     // 로그인 상태변수 선언
     let [ login, setLogin ] = useState( null );
 

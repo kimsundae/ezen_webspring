@@ -2,9 +2,11 @@ package ezenweb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 @Configuration // 스프링 컨테이너에 빈 등록
+@EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
     @Autowired
